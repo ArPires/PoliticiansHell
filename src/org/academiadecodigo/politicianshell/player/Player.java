@@ -1,22 +1,22 @@
 package org.academiadecodigo.politicianshell.player;
 
 import org.academiadecodigo.politicianshell.field.Field;
-import org.academiadecodigo.politicianshell.field.Position;
+import org.academiadecodigo.politicianshell.weapons.Bullet;
 import org.academiadecodigo.simplegraphics.graphics.Color;
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
-import org.academiadecodigo.simplegraphics.keyboard.Keyboard;
-import org.academiadecodigo.simplegraphics.keyboard.KeyboardEvent;
-import org.academiadecodigo.simplegraphics.keyboard.KeyboardEventType;
-import org.academiadecodigo.simplegraphics.keyboard.KeyboardHandler;
 
 public class Player {
 
     private Rectangle rectangle;
+    private Bullet bullet;
+    private PlayerKeyboard playerKeyboard;
 
-    public Player(int X, int Y, int width, int height) {
-        rectangle = new Rectangle(X,Y,width,height);
+    public Player(int x, int y, int width, int height) {
+        rectangle = new Rectangle(x,y,width,height);
         rectangle.setColor(Color.BLUE);
         rectangle.fill();
+        playerKeyboard = new PlayerKeyboard(this);
+        bullet = new Bullet(getX(),getY());
 
     }
 
@@ -24,12 +24,37 @@ public class Player {
         if(rectangle.getX() > 10) {
             rectangle.translate(-15, 0);
         }
+        System.out.println(getX());
+
     }
 
     public void moveRight() {
         if(rectangle.getX() < Field.WIDTH - 40) {
             rectangle.translate(15,0);
         }
+    }
+
+    public void shoot() {
+        while(bullet.getY() > 0) {
+            bullet.move();
+        }
+
+    }
+
+    public int getX(){
+        return rectangle.getX();
+    }
+
+    public int getY(){
+        return rectangle.getY();
+    }
+
+    public int getWith(){
+        return rectangle.getWidth();
+    }
+
+    public int getHeight(){
+        return rectangle.getHeight();
     }
 
 }

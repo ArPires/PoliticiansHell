@@ -20,6 +20,7 @@ public class Field {
 
         grid = new Rectangle(0,0,WIDTH,(HEIGHT - MARGIN_BOTTOM));
         grid.setColor(Color.GRAY);
+        grid.fill();
 
     }
 

@@ -6,13 +6,13 @@ import org.academiadecodigo.politicianshell.player.PlayerKeyboard;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException{
 
         Field field = new Field();
 
         field.init();
 
-        PlayerKeyboard p = new PlayerKeyboard(Field.WIDTH/2 - 15,Field.HEIGHT - 100,30,40);
+       Player player = new Player(Field.WIDTH/2 - 15, Field.HEIGHT - 100, 30, 40);
 
     }
 }

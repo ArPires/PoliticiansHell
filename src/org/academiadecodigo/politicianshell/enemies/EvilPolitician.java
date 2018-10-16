@@ -2,8 +2,8 @@ package org.academiadecodigo.politicianshell.enemies;
 
 import org.academiadecodigo.politicianshell.weapons.WeaponType;
 
-public class EvilPolitician extends Enemy {
-
+//public class EvilPolitician extends Enemy {
+/*
     private int curruptionLevel;
 
     public EvilPolitician(EnemyType enemyType, int health, int curruptionLevel){
@@ -23,6 +23,6 @@ public class EvilPolitician extends Enemy {
         curruptionLevel = 0;
         super.hit(WeaponType.getBullets());
     }
-
-}
+*/
+//}
 

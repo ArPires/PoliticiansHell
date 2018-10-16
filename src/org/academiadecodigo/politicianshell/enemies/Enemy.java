@@ -1,26 +1,26 @@
 package org.academiadecodigo.politicianshell.enemies;
 
-import org.academiadecodigo.politicianshell.field.Position;
-import org.academiadecodigo.politicianshell.weapons.Weapon;
-import org.academiadecodigo.politicianshell.weapons.WeaponType;
+
+import org.academiadecodigo.politicianshell.weapons.Bullet;
 
 abstract public class Enemy {
 
     private EnemyType enemyType;
-    private Position position;
-    private Boolean dead;
+    private boolean dead;
+    //private BulletType bulletType;
+    private int currentHealth;
 
-    public Enemy (EnemyType enemyType, int health){
+    public Enemy (EnemyType enemyType){
         this.enemyType = enemyType;
+        currentHealth = enemyType.getHealth();
     }
-    public abstract Position move();
 
-    public void hit(Weapon weapon){
+    public void hit(Bullet bullet){
 
-        enemyType.getHealth() > WeaponType.getBullets()? health - WeaponType.getBullets():0;
+        //currentHealth = enemyType.getHealth() > weaponType.getBulletPower() ? currentHealth - weaponType.getBulletPower() : 0;
 
 
-        if(health == 0) {
+        if(currentHealth == 0) {
         dead = true;
         System.out.println("This enemy is dead!");
         }

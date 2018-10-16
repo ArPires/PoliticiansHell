@@ -1,14 +1,17 @@
 package org.academiadecodigo.politicianshell.player;
 
+import org.academiadecodigo.politicianshell.weapons.Bullet;
 import org.academiadecodigo.simplegraphics.keyboard.Keyboard;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEvent;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEventType;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardHandler;
 
-public class PlayerKeyboard extends Player implements KeyboardHandler {
+public class PlayerKeyboard implements KeyboardHandler {
 
-    public PlayerKeyboard(int X, int Y, int width, int height) {
-        super(X, Y, width, height);
+    private Player player;
+
+    public PlayerKeyboard(Player player) {
+        this.player = player;
 
         Keyboard k = new Keyboard(this);
 
@@ -30,14 +33,15 @@ public class PlayerKeyboard extends Player implements KeyboardHandler {
 
     @Override
     public void keyPressed(KeyboardEvent e) {
+        System.out.println(e);
         if(e.getKey() == KeyboardEvent.KEY_LEFT) {
-            super.moveLeft();
+            player.moveLeft();
         }
         if(e.getKey() == KeyboardEvent.KEY_RIGHT) {
-            super.moveRight();
+            player.moveRight();
         }
         if(e.getKey() == KeyboardEvent.KEY_SPACE) {
-            //Bullet.move();
+            player.shoot();
         }
     }
 
