@@ -1,5 +1,7 @@
 package org.academiadecodigo.politicianshell.player;
 
+import org.academiadecodigo.politicianshell.Direction;
+import org.academiadecodigo.politicianshell.weapons.Bullet;
 import org.academiadecodigo.simplegraphics.keyboard.Keyboard;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEvent;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEventType;
@@ -8,6 +10,7 @@ import org.academiadecodigo.simplegraphics.keyboard.KeyboardHandler;
 public class PlayerKeyboard implements KeyboardHandler {
 
     private Player player;
+    private Bullet bullet;
 
     public PlayerKeyboard(Player player) {
         this.player = player;
@@ -67,8 +70,8 @@ public class PlayerKeyboard implements KeyboardHandler {
         if(e.getKey() == KeyboardEvent.KEY_RIGHT) {
             player.setDirection(null);
         }
-        if(e.getKey() == KeyboardEvent.KEY_SPACE) {
-        }
+        /*if(e.getKey() == KeyboardEvent.KEY_SPACE) {
+        }*/
     }
 
 

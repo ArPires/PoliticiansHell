@@ -1,5 +1,6 @@
 package org.academiadecodigo.politicianshell.player;
 
+import org.academiadecodigo.politicianshell.Direction;
 import org.academiadecodigo.politicianshell.field.Field;
 import org.academiadecodigo.politicianshell.weapons.Bullet;
 import org.academiadecodigo.simplegraphics.graphics.Color;
@@ -11,6 +12,7 @@ public class Player {
     private Bullet bullet;
     private PlayerKeyboard playerKeyboard;
     private Direction direction;
+    private boolean shooting;
 
     public Player(int x, int y, int width, int height) {
 
@@ -38,7 +40,7 @@ public class Player {
 
         if(rectangle.getX() > 10) {
 
-            rectangle.translate(-15, 0);
+            rectangle.translate(-10, 0);
         }
     }
 
@@ -46,13 +48,15 @@ public class Player {
 
         if(rectangle.getX() < Field.WIDTH - 40) {
 
-            rectangle.translate(15,0);
+            rectangle.translate(10,0);
         }
     }
 
     public void shoot() {
-
-        bullet = new Bullet(rectangle.getX(),rectangle.getY());
+        if(shooting) {
+            return;
+        }
+        bullet = new Bullet(rectangle.getX()+13,rectangle.getY());
         bullet.move();
 
     }
