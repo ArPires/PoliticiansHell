@@ -11,8 +11,9 @@ public class Main {
         Field field = new Field();
 
         field.init();
-
-       Player player = new Player(Field.WIDTH/2 - 15, Field.HEIGHT - 100, 30, 40);
+        //Game g = new Game(500, 800);
+        //g.init();
+        Player player = new Player(Field.WIDTH/2 - 15, Field.HEIGHT - 100, 30, 40);
 
     }
 }

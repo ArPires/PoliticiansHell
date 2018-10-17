@@ -8,7 +8,7 @@ import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 public class Field {
 
     public static final int WIDTH = 500;
-    public static final int HEIGHT = 800;
+    public static final int HEIGHT = 700;
     public static final int MARGIN_BOTTOM = 50;
     private Rectangle grid;
 

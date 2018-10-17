@@ -1,6 +1,5 @@
 package org.academiadecodigo.politicianshell.player;
 
-import org.academiadecodigo.politicianshell.weapons.Bullet;
 import org.academiadecodigo.simplegraphics.keyboard.Keyboard;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEvent;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEventType;
@@ -33,7 +32,6 @@ public class PlayerKeyboard implements KeyboardHandler {
 
     @Override
     public void keyPressed(KeyboardEvent e) {
-        System.out.println(e);
         if(e.getKey() == KeyboardEvent.KEY_LEFT) {
             player.moveLeft();
         }

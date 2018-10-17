@@ -12,32 +12,34 @@ public class Player {
     private PlayerKeyboard playerKeyboard;
 
     public Player(int x, int y, int width, int height) {
+
         rectangle = new Rectangle(x,y,width,height);
         rectangle.setColor(Color.BLUE);
         rectangle.fill();
         playerKeyboard = new PlayerKeyboard(this);
-        bullet = new Bullet(getX(),getY());
 
     }
 
     public void moveLeft() {
+
         if(rectangle.getX() > 10) {
+
             rectangle.translate(-15, 0);
         }
-        System.out.println(getX());
-
     }
 
     public void moveRight() {
+
         if(rectangle.getX() < Field.WIDTH - 40) {
+
             rectangle.translate(15,0);
         }
     }
 
     public void shoot() {
-        while(bullet.getY() > 0) {
-            bullet.move();
-        }
+
+        bullet = new Bullet(getX(),getY());
+        bullet.move();
 
     }
 
