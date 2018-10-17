@@ -45,7 +45,15 @@ public class PlayerKeyboard implements KeyboardHandler {
 
 
     @Override
-    public void keyReleased(KeyboardEvent e) {}
+    public void keyReleased(KeyboardEvent e) {
+        if(e.getKey() == KeyboardEvent.KEY_LEFT) {
+        }
+        if(e.getKey() == KeyboardEvent.KEY_RIGHT) {
+        }
+        if(e.getKey() == KeyboardEvent.KEY_SPACE) {
+        }
+    }
+
 
 
 
