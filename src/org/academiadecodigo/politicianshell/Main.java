@@ -17,31 +17,15 @@ public class Main {
         //g.init();
         Player player = new Player(Field.WIDTH/2 - 15, Field.HEIGHT - 100, 30, 40);
 
-        Enemy[] enemies = new Enemy[20];
+       Game game = new Game();
 
-        enemies[0] = new Enemy();
-        enemies[0].movePolitician();
+       game.init();
 
-        /*for (int i = 1; i < enemies.length; i++){
-            if (enemies[i-1].getEnemyGfxX() == 15) {
-                enemies[i] = new Enemy();
-                enemies[i].movePolitician();
-            }
-        }*/
-
-        while (true) {
-
-            player.move();
+       game.start();
 
 
-            // move enemies
 
-            Thread.sleep(100);
-        }
 
-        /*for (Enemy enemy : enemies) {
-
-        }*/
     }
 
 }

@@ -2,6 +2,7 @@ package org.academiadecodigo.politicianshell.enemies;
 
 
 import org.academiadecodigo.politicianshell.field.Field;
+import org.academiadecodigo.politicianshell.player.Direction;
 import org.academiadecodigo.politicianshell.weapons.Bullet;
 import org.academiadecodigo.simplegraphics.graphics.Color;
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
@@ -13,6 +14,7 @@ public class Enemy {
     //private BulletType bulletType;
     private int currentHealth;
     private Rectangle enemyGfx;
+    private Direction direction;
     private static final int DELAY = 5;
 
     public Enemy (EnemyType enemyType){
@@ -32,7 +34,7 @@ public class Enemy {
 
     public void movePolitician() throws InterruptedException{
         int maxX = Field.WIDTH - enemyGfx.getWidth() - 10;
-        int maxY = (Field.HEIGHT - Field.MARGIN_BOTTOM - enemyGfx.getHeight());
+        int maxY = Field.HEIGHT - Field.MARGIN_BOTTOM - enemyGfx.getHeight();
 
         while (enemyGfx.getY() < maxY) {
             while (enemyGfx.getX() < maxX) {
@@ -50,9 +52,43 @@ public class Enemy {
             enemyGfx.translate(0, 15);
         }
 
-        //System.out.println(rectangle.getX());
-
     }
+
+    public void setDirection(Direction direction){
+        this.direction = direction;
+    }
+
+    /*public void movePoliticians(){
+        politicianMoveDown();
+
+        politicianMoveLeft();
+
+        politicianMoveRight();
+    }
+
+    public void politicianMoveLeft(){
+        int maxX = Field.WIDTH - enemyGfx.getWidth() - 10;
+        if (enemyGfx.getX() > 10) {
+            enemyGfx.translate(15, 0);
+        }
+    }
+
+    public void politicianMoveRight(){
+
+        int maxX = Field.WIDTH - enemyGfx.getWidth() - 10;
+        if (enemyGfx.getX() < maxX) {
+            enemyGfx.translate(15, 0);
+        }
+    }
+
+    public void politicianMoveDown(){
+        int maxX = Field.WIDTH - enemyGfx.getWidth() - 10;
+        int maxY = Field.HEIGHT - Field.MARGIN_BOTTOM - enemyGfx.getHeight();
+        if (enemyGfx.getY() < maxY && (enemyGfx.getX() < maxX || enemyGfx.getX() > 10))  {
+            enemyGfx.translate(15, 0);
+        }
+    }*/
+
     public void hit(Bullet bullet){
 
         //currentHealth = enemyType.getHealth() > weaponType.getBulletPower() ? currentHealth - weaponType.getBulletPower() : 0;
