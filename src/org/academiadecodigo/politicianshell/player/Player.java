@@ -38,11 +38,11 @@ public class Player {
 
     public void shoot() {
 
-        bullet = new Bullet(getX(),getY());
+        bullet = new Bullet(rectangle.getX(),rectangle.getY());
         bullet.move();
 
     }
-
+/*
     public int getX(){
         return rectangle.getX();
     }
@@ -57,6 +57,6 @@ public class Player {
 
     public int getHeight(){
         return rectangle.getHeight();
-    }
+    }*/
 
 }
