@@ -19,8 +19,7 @@ public class Game {
 
         field.init();
 
-        enemies = createEnemies(10, 0, 50);
-        enemies1 = createEnemies(10, 0, 80);
+        enemies = createEnemies(45, 20, 50);
 
         player = new Player(Field.WIDTH/2 - 15, Field.HEIGHT - 100, 30, 40);
 
@@ -31,10 +30,16 @@ public class Game {
         //int y = 50;
 
         Enemy[] enemiesTemp = new Enemy[enemyNumber];
+
         for (int i = 0; i < enemyNumber; i++) {
+            if (i == 15 || i == 30){
+                y += 30;
+                x = 20;
+            }
             enemiesTemp[i] = new Enemy(EnemyType.MINION_POLITICIAN, x, y);
             x += 30;
         }
+
         return enemiesTemp;
     }
 
@@ -43,11 +48,11 @@ public class Game {
 
         while (true) {
 
-           player.move();
+            player.move();
 
-           moveAllPoliticians();
+            moveAllPoliticians();
 
-           Thread.sleep(50);
+            Thread.sleep(200);
 
         }
     }
@@ -59,11 +64,7 @@ public class Game {
             enemy.movePoliticians();
 
         }
-        for (Enemy enemy1 : enemies1) {
 
-            enemy1.movePoliticians();
-
-        }
     }
 
 }
