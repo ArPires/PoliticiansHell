@@ -10,39 +10,53 @@ public class Game {
     private Player player;
     private Enemy[] enemies;
 
-    public Game() {
+   /* public Game() {
+        field = new Field();
+    }*/
+    public Game(){
         field = new Field();
     }
 
     public void init() {
 
         field.init();
+        enemies = createEnemies(20);
 
         player = new Player(Field.WIDTH/2 - 15, Field.HEIGHT - 100, 30, 40);
 
-        enemies = new Enemy[20];
+        //enemies = new Enemy[20];
         enemies[0] = new Enemy();
 
 
     }
+        /*enemies[0] = new Enemy();
+        enemies[0].movePolitician();*/
 
-    public void start() throws InterruptedException{
+    public Enemy[] createEnemies (int enemyNumber) {
+        Enemy[] enemiesTemp = new Enemy[enemyNumber];
+        for (int i = 0; i < enemiesTemp.length; i++) {
+            enemiesTemp[i] = new Enemy();
+            //enemies[i].movePolitician();
+        }
+        return enemiesTemp;
+    }
 
+
+    public void start()throws InterruptedException {
         while (true) {
+           player.move();
 
-            player.move();
-            //enemies[0].movePolitician();
-            /*for (int i = 1; i < enemies.length; i++){
-                if (enemies[i-1].getEnemyGfxX() == 15) {
-                    enemies[i] = new Enemy();
-                    enemies[i].movePolitician();
-                }
-            }*/
+           moveAllPoliticians();
 
-            // move enemies
-
-            Thread.sleep(50);
-
+           Thread.sleep(100);
         }
     }
+
+    public void moveAllPoliticians() throws InterruptedException{
+        for (Enemy enemy : enemies){
+            enemy.movePolitician();
+        }
+    }
+
+
 }

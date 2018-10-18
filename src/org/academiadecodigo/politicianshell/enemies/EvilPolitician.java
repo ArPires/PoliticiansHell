@@ -1,6 +1,5 @@
 package org.academiadecodigo.politicianshell.enemies;
 
-import org.academiadecodigo.politicianshell.weapons.WeaponType;
 
 //public class EvilPolitician extends Enemy {
 /*
