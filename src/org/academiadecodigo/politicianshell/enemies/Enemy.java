@@ -7,10 +7,6 @@ import org.academiadecodigo.politicianshell.weapons.Bullet;
 import org.academiadecodigo.simplegraphics.graphics.Color;
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 
-import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 public class Enemy {
 
     private EnemyType enemyType;
@@ -20,23 +16,21 @@ public class Enemy {
     private Rectangle enemyGfx;
     private Direction direction = Direction.RIGHT;
     private static final int DELAY = 5;
+    private int initialX;
+    private int initialY;
 
-    public Enemy (EnemyType enemyType){
+
+    public Enemy (EnemyType enemyType, int x, int y){
+        this.initialX = x;
+        this.initialY = y;
         this.enemyType = enemyType;
         currentHealth = enemyType.getHealth();
-        enemyGfx = new Rectangle(0, 50, 15,15);
+        enemyGfx = new Rectangle(x, y, 15,15);
         enemyGfx.setColor(Color.YELLOW);
         enemyGfx.fill();
     }
 
-    public Enemy (){
-
-        enemyGfx = new Rectangle(0, 50, 15,15);
-        enemyGfx.setColor(Color.YELLOW);
-        enemyGfx.fill();
-    }
-
-    public void movePoliticians(){
+  /*  public void movePoliticians(){
         if(direction == Direction.RIGHT) {
             politicianMoveRight();
             return;
@@ -46,39 +40,85 @@ public class Enemy {
             return;
         }
         politicianMoveLeft();
+    }*/
+
+    public void movePoliticians(){
+
+        if(direction == Direction.RIGHT) {
+            politicianMoveRight();
+            return;
+        }
+        if(direction == Direction.DOWN) {
+            politicianMoveDownToLeft();
+            return;
+        }
+        if(direction == Direction.LEFT) {
+            politicianMoveLeft();
+            return;
+        }
+        politicianMoveDownToRight();
+
     }
 
     public void politicianMoveLeft(){
-        if (enemyGfx.getX() > 10) {
+        /*if (enemyGfx.getX() > (Field.WIDTH + enemyGfx.getWidth() + 10)) {
+            politicianMoveDown();
+            return;
+        } */
+            enemyGfx.translate(-15, 0);
+            direction = Direction.DOWN;
+        }
+
+
+    public void politicianMoveRight(){
+        enemyGfx.translate(15, 0);
+        direction = Direction.DOWN;
+    }
+
+    public void politicianMoveDownToLeft(){
+        enemyGfx.translate(0, 15);
+        direction = Direction.LEFT;
+
+    }
+
+    public void politicianMoveDownToRight(){
+        enemyGfx.translate(0, 15);
+        direction = Direction.RIGHT;
+
+    }
+    /*public void politicianMoveLeft(){
+        if (enemyGfx.getX() > initialX) {
             enemyGfx.translate(-15, 0);
             return;
         }
-        direction = Direction.DOWN;
+        politicianMoveDown();
     }
 
     public void politicianMoveRight(){
-        int maxX = Field.WIDTH - enemyGfx.getWidth() - 10;
-        if (enemyGfx.getX() < maxX) {
+        final int MAXX = initialX + 30;
+        if (enemyGfx.getX() < MAXX) {
             enemyGfx.translate(15, 0);
             return;
         }
-        direction = Direction.DOWN;
+        politicianMoveDown();
     }
 
     public void politicianMoveDown(){
-        int maxX = Field.WIDTH - enemyGfx.getWidth() - 10;
+        int maxY1 = enemyGfx.getY() + 30;
         int maxY = Field.HEIGHT - Field.MARGIN_BOTTOM - enemyGfx.getHeight();
-        if (enemyGfx.getY() < maxY && (enemyGfx.getX() > maxX)) {
-            enemyGfx.translate(0, 15);
+        enemyGfx.translate(0, 15);
+        if (enemyGfx.getY() > maxY1) {
+            System.out.println("lout");
+            if(enemyGfx.getX() == initialX) {
+                direction = Direction.RIGHT;
+
+                return;
+            }
             direction = Direction.LEFT;
-            return;
+
         }
-        if (enemyGfx.getY() < maxY && (enemyGfx.getX() < 10)) {
-            enemyGfx.translate(0, 15);
-            direction = Direction.RIGHT;
-            return;
-        }
-    }
+
+    }*/
 
     public void hit(Bullet bullet){
 
