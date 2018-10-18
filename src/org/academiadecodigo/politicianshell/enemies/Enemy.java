@@ -36,28 +36,6 @@ public class Enemy {
         enemyGfx.fill();
     }
 
-    /*public void movePolitician() throws InterruptedException{
-        int maxX = Field.WIDTH - enemyGfx.getWidth() - 10;
-        int maxY = Field.HEIGHT - Field.MARGIN_BOTTOM - enemyGfx.getHeight();
-
-        while (enemyGfx.getY() < maxY) {
-            while (enemyGfx.getX() < maxX) {
-                Thread.sleep(DELAY);
-                enemyGfx.translate(15, 0);
-            }
-
-            enemyGfx.translate(0, 15);
-
-            while (enemyGfx.getX() > 10) {
-                Thread.sleep(DELAY);
-                enemyGfx.translate(-15, 0);
-            }
-
-            enemyGfx.translate(0, 15);
-        }
-
-    }*/
-
     public void movePoliticians(){
         if(direction == Direction.RIGHT) {
             politicianMoveRight();
@@ -73,6 +51,7 @@ public class Enemy {
     public void politicianMoveLeft(){
         if (enemyGfx.getX() > 10) {
             enemyGfx.translate(-15, 0);
+            return;
         }
         direction = Direction.DOWN;
     }
@@ -81,6 +60,7 @@ public class Enemy {
         int maxX = Field.WIDTH - enemyGfx.getWidth() - 10;
         if (enemyGfx.getX() < maxX) {
             enemyGfx.translate(15, 0);
+            return;
         }
         direction = Direction.DOWN;
     }
@@ -91,10 +71,12 @@ public class Enemy {
         if (enemyGfx.getY() < maxY && (enemyGfx.getX() > maxX)) {
             enemyGfx.translate(0, 15);
             direction = Direction.LEFT;
+            return;
         }
         if (enemyGfx.getY() < maxY && (enemyGfx.getX() < 10)) {
             enemyGfx.translate(0, 15);
             direction = Direction.RIGHT;
+            return;
         }
     }
 

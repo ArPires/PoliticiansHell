@@ -52,7 +52,7 @@ public class Game {
         }
     }
 
-    public void moveAllPoliticians() throws InterruptedException{
+    public void moveAllPoliticians() {
         for (Enemy enemy : enemies){
             enemy.movePoliticians();
         }
