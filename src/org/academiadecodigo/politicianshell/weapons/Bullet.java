@@ -1,19 +1,17 @@
 package org.academiadecodigo.politicianshell.weapons;
 
+import org.academiadecodigo.politicianshell.Game;
 import org.academiadecodigo.simplegraphics.graphics.Color;
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
-
-import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class Bullet {
 
     private Rectangle bulletGfx;
-
+private boolean move;
 
     public Bullet(int x, int y) {
 
+        move = false;
         bulletGfx = new Rectangle(x, y, 4, 10);
         bulletGfx.setColor(Color.RED);
         bulletGfx.fill();
@@ -21,26 +19,33 @@ public class Bullet {
     }
 
     public void move() {
-
-        ActionListener listener = new AbstractAction() {
-
-            public void actionPerformed(ActionEvent e) {
-
-                if(bulletGfx.getY() < 0) {
-                    bulletGfx.translate(0,0);
-                } else {
-                    bulletGfx.translate(0,-10);
-                }
-            }
-        };
-
-        Timer timer = new Timer(30,listener);
-        timer.start();
-
+        if (bulletGfx.getY() > -30) {
+            move = true;
+            bulletGfx.translate(0, -10);
+        }
     }
 
-    public int getY() {
+    public void stop(){
+        if (move){
+         bulletGfx.translate(0,0);
+        }
+    }
+
+
+    public int bulletGetY() {
         return bulletGfx.getY();
+    }
+
+    public int bulletGetX() {
+        return bulletGfx.getX();
+    }
+
+    public int bulletGetWidth() {
+        return bulletGfx.getWidth();
+    }
+
+    public int bulletGetHeight() {
+        return bulletGfx.getHeight();
     }
 
 }
