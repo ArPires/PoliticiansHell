@@ -22,6 +22,7 @@ private boolean move;
         if (bulletGfx.getY() > -30) {
             move = true;
             bulletGfx.translate(0, -10);
+
         }
     }
 

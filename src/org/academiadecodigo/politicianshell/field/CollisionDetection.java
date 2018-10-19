@@ -20,7 +20,7 @@ public class CollisionDetection {
 
 
         for (int i = 0; i < enemies.length; i++) {
-
+/*
             int eX = enemies[i].getEnemyGfxX();
             int eY = enemies[i].getEnemyGfxY();
             int eW = enemies[i].getEnemyGfxWidth();
@@ -34,17 +34,23 @@ public class CollisionDetection {
             //System.out.println(eX + " - " + eY + " - " + eW + " - " + eH);
             //System.out.println(bullet.bulletGetX() + "buX");
             //System.out.println(bullet.bulletGetY() + "buY");
-            if (y > bullet.bulletGetX()){
+            if (y > bullet.bulletGetY()){
                 System.out.println("hit");
+            }*/
+            System.out.println(bullet.bulletGetY());
+            System.out.println(enemies[i].getEnemyGfxY()+" en");
+            if (bullet.bulletGetY() < enemies[i].getEnemyGfxY() && bullet.bulletGetWidth()){
+                System.out.println("hit");
+
             }
 
-            /*if (bullet.bulletGetX() < (enemies[i].getEnemyGfxX() + enemies[i].getEnemyGfxWidth()) &&
+            if (bullet.bulletGetX() < (enemies[i].getEnemyGfxX() + enemies[i].getEnemyGfxWidth()) &&
                     (bullet.bulletGetX() + bullet.bulletGetWidth()) > enemies[i].getEnemyGfxX() &&
                     bullet.bulletGetY() == (enemies[i].getEnemyGfxY() + enemies[i].getEnemyGfxHeight())) {
                 System.out.println("hit");
                 enemies[i].setDead(true);
                 enemies[i].isDead();
-            }*/
+            }
         }
 
     }

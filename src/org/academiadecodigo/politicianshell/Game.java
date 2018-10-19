@@ -73,9 +73,11 @@ public class Game {
             for (Bullet bullet : listBullets) {
                 bullet.move();
                 bullet.stop();
+                collisionDetection.check(bullet);
             }
 
-            moveAllPoliticians();
+
+            //moveAllPoliticians();
 
             //movelAll();
 
@@ -85,24 +87,23 @@ public class Game {
     }
 
     public void moveAllPoliticians() {
-/*
+
         for (Enemy enemy : enemies) {
 
             //enemy.movePoliticians();
 
-        }*/
+        }
+        /*
         for (Bullet bullet : listBullets) {
-            collisionDetection.check(bullet);
-        }
 
-        for (int i = 0; i < enemies.length; i++){
+            for (int i = 0; i < enemies.length; i++) {
 
+                System.out.println("bullet " + bullet.bulletGetY());
+                System.out.println("enemy " + enemies[i].getEnemyGfxX());
+                System.out.println("----");
 
-
-        }
+            }
+        }*/
     }
 
-    public void movelAll() {
-
-    }
 }
