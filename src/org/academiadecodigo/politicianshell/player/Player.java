@@ -6,6 +6,8 @@ import org.academiadecodigo.politicianshell.weapons.Bullet;
 import org.academiadecodigo.simplegraphics.graphics.Color;
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 
+import java.util.LinkedList;
+
 public class Player {
 
     private Rectangle rectangle;
@@ -13,14 +15,31 @@ public class Player {
     private PlayerKeyboard playerKeyboard;
     private Direction direction;
     private boolean shooting;
+    private LinkedList<Bullet> listBullets;
 
     public Player(int x, int y, int width, int height) {
 
-        rectangle = new Rectangle(x,y,width,height);
+        rectangle = new Rectangle(x, y, width, height);
         rectangle.setColor(Color.BLUE);
         rectangle.fill();
         playerKeyboard = new PlayerKeyboard(this);
+        shooting = false;
 
+        listBullets = new LinkedList<>();
+
+        for (int i = 0; i < 100; i++) {
+            listBullets.add(new Bullet(x, y));
+        }
+
+    }
+
+    public void setShooting(boolean shooting) {
+        this.shooting = shooting;
+
+    }
+
+    public boolean getShooting() {
+        return shooting;
     }
 
     public void move() {
@@ -38,7 +57,7 @@ public class Player {
 
     public void moveLeft() {
 
-        if(rectangle.getX() > 10) {
+        if (rectangle.getX() > 10) {
 
             rectangle.translate(-10, 0);
         }
@@ -46,26 +65,30 @@ public class Player {
 
     public void moveRight() {
 
-        if(rectangle.getX() < Field.WIDTH - 40) {
+        if (rectangle.getX() < Field.WIDTH - 40) {
 
-            rectangle.translate(10,0);
+            rectangle.translate(10, 0);
         }
     }
 
-    public void shoot() {
-        if(shooting) {
-            return;
+    public Bullet shoot() {
+        if (!shooting) {
+            return null;
         }
-        bullet = new Bullet(rectangle.getX()+13,rectangle.getY());
-        bullet.move();
 
+        Bullet bullet = listBullets.getLast();
+        listBullets.removeLast();
+
+        setShooting(false);
+
+        return bullet;
     }
 
-    public int getX(){
+    public int getX() {
         return rectangle.getX();
     }
 
-    public int getY(){
+    public int getY() {
         return rectangle.getY();
     }
 

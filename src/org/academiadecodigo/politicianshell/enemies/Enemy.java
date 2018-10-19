@@ -85,10 +85,21 @@ public class Enemy {
     }
 
     public boolean isDead() {
+        if(dead == true) {
+            enemyGfx.delete();
+        }
         return this.dead;
     }
 
+    public void setDead(boolean isDead) {this.dead = isDead;}
+
+
     public int getEnemyGfxX() {
-        return enemyGfx.getX();
-    }
+        return enemyGfx.getX();}
+
+    public int getEnemyGfxY() { return enemyGfx.getY();}
+
+    public int getEnemyGfxWidth() { return enemyGfx.getWidth();}
+
+    public int getEnemyGfxHeight() { return enemyGfx.getHeight();}
 }
