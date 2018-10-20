@@ -21,7 +21,8 @@ public class Game {
 
         enemies = createEnemies(45, 20, 50);
 
-        player = new Player(Field.WIDTH/2 - 15, Field.HEIGHT - 100, 30, 40);
+        //player = new Player(Field.WIDTH/2 - 15, Field.HEIGHT - 100, 30, 40);
+        player = new Player();
 
     }
 
