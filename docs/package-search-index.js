@@ -1,1 +1,0 @@
-packageSearchIndex = [{"l":"org.academiadecodigo.politicianshell"},{"l":"org.academiadecodigo.politicianshell.enemies"},{"l":"org.academiadecodigo.politicianshell.field"},{"l":"org.academiadecodigo.politicianshell.player"},{"l":"org.academiadecodigo.politicianshell.bullets"}]

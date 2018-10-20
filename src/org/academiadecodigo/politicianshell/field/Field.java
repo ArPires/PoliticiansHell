@@ -14,8 +14,8 @@ public class Field {
 
 // RETIFICAR A NECESSIDADE DE COLOCAR ESTE COISO
 
-        Canvas.getInstance().setWidth(WIDTH);
-        Canvas.getInstance().setHeight(HEIGHT);
+        //Canvas.getInstance().setWidth(WIDTH);
+        //Canvas.getInstance().setHeight(HEIGHT);
 
     }
 
