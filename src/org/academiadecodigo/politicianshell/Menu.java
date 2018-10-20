@@ -8,26 +8,28 @@ import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 public class Menu {
 
-    private Game.Status state;
+    private Game.Status status;
     private Picture menu;
 
 
     public Menu() {
+
         menu = new Picture(0, 0, "resources/Menu.png");
         new MenuHandler();
-        state = Game.Status.MENU;
+        status = Game.Status.MENU;
+
     }
 
     public Game.Status play() throws InterruptedException {
 
         menu.draw();
 
-        while (state == Game.Status.MENU) {
+        while (status == Game.Status.MENU) {
             Thread.sleep(50);
         }
 
         menu.delete();
-        return state;
+        return status;
     }
 
     private class MenuHandler implements KeyboardHandler {
@@ -56,10 +58,10 @@ public class Menu {
 
             switch (e.getKey()) {
                 case KeyboardEvent.KEY_P:
-                    state = Game.Status.PLAY;
+                    status = Game.Status.PLAY;
                     break;
                 case KeyboardEvent.KEY_Q:
-                    state = Game.Status.QUIT;
+                    status = Game.Status.QUIT;
                     break;
                 default:
                     System.err.println("MENU KEYS NOT WORKING.");
@@ -68,6 +70,7 @@ public class Menu {
 
         @Override
         public void keyReleased(KeyboardEvent keyboardEvent) {
+
         }
     }
 }

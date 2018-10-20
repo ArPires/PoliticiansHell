@@ -1,7 +1,8 @@
 package org.academiadecodigo.politicianshell.enemies;
 
 public enum EnemyType {
-    EVIIL_POLITICIAN(500),
+
+    EVIL_POLITICIAN(500),
     MINION_POLITICIAN(100);
 
     private int health;
@@ -13,4 +14,5 @@ public enum EnemyType {
     public int getHealth() {
         return health;
     }
+
 }

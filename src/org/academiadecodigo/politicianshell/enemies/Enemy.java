@@ -1,87 +1,95 @@
 package org.academiadecodigo.politicianshell.enemies;
 
-
-import org.academiadecodigo.politicianshell.field.Field;
 import org.academiadecodigo.politicianshell.Direction;
-import org.academiadecodigo.politicianshell.weapons.Bullet;
-import org.academiadecodigo.simplegraphics.graphics.Color;
-import org.academiadecodigo.simplegraphics.graphics.Rectangle;
+import org.academiadecodigo.politicianshell.bullets.Bullet;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 public class Enemy {
 
     private EnemyType enemyType;
     private boolean dead;
-    //private BulletType bulletType;
     private int currentHealth;
     private Picture enemyGfx;
     private Direction direction = Direction.RIGHT;
-
+    private int waitingTime = 0;
 
     public Enemy(EnemyType enemyType, int x, int y) {
+
         this.enemyType = enemyType;
         currentHealth = enemyType.getHealth();
         int random = (int) (Math.random() * EnemyPicture.values().length);
         String enemyPicture = EnemyPicture.values()[random].getUrl();
-
-        enemyGfx = new Picture(x, y, enemyPicture.toString());
+        enemyGfx = new Picture(x, y, enemyPicture);
         enemyGfx.draw();
-        //enemyGfx.setColor(Color.YELLOW);
-        //enemyGfx.fill();
+
     }
 
-    public void movePoliticians() {
+    public void moveEnemy() {
+
         int maxY = 550;
+
         switch (direction) {
             case RIGHT:
-                politicianMoveRight();
+                enemyMoveRight();
                 break;
             case DOWN_TO_LEFT:
                 if (enemyGfx.getY() > maxY) {
                     return;
                 }
-                politicianMoveDownToLeft();
+                enemyDownToLeft();
                 break;
             case LEFT:
-                politicianMoveLeft();
+                enemyMoveLeft();
                 break;
             case DOWN_TO_RIGHT:
                 if (enemyGfx.getY() > maxY) {
                     return;
                 }
-                politicianMoveDownToRight();
+                enemyDownToRight();
                 break;
         }
 
+        waitingTime++;
+
     }
 
-    public void politicianMoveLeft() {
-        enemyGfx.translate(-15, 0);
-        direction = Direction.DOWN_TO_RIGHT;
+    public void enemyMoveLeft() {
+
+        if (waitingTime == 4) {
+            waitingTime = 0;
+            direction = Direction.DOWN_TO_RIGHT;
+        }
+
+        enemyGfx.translate(-5, 0);
+
     }
 
 
-    public void politicianMoveRight() {
-        enemyGfx.translate(15, 0);
-        direction = Direction.DOWN_TO_LEFT;
+    public void enemyMoveRight() {
+
+        if (waitingTime == 4) {
+            waitingTime = 0;
+            direction = Direction.DOWN_TO_LEFT;
+        }
+
+        enemyGfx.translate(5, 0);
     }
 
-    public void politicianMoveDownToLeft() {
+    public void enemyDownToLeft() {
+
         enemyGfx.translate(0, 15);
         direction = Direction.LEFT;
-
     }
 
-    public void politicianMoveDownToRight() {
+    public void enemyDownToRight() {
+
         enemyGfx.translate(0, 15);
         direction = Direction.RIGHT;
-
     }
 
     public void hit(Bullet bullet) {
 
         //currentHealth = enemyType.getHealth() > weaponType.getBulletPower() ? currentHealth - weaponType.getBulletPower() : 0;
-
 
         if (currentHealth == 0) {
             dead = true;
@@ -93,7 +101,47 @@ public class Enemy {
         return this.dead;
     }
 
+    public void setDead(boolean isDead) {
+        this.dead = isDead;
+        enemyGfx.delete();
+    }
+
     public int getEnemyGfxX() {
         return enemyGfx.getX();
     }
+
+    public int getEnemyGfxY() {
+        return enemyGfx.getY();
+    }
+
+    public int getEnemyGfxWidth() {
+        return enemyGfx.getWidth();
+    }
+
+    public int getEnemyGfxHeight() {
+        return enemyGfx.getHeight();
+    }
+
+
+    public enum EnemyPicture {
+
+        SOCRATES ("resources/Socrates.png"),
+        LULA ("resources/Lula.png"),
+        BOLSONARO ("resources/Bolsonaro.png"),
+        MADURO ("resources/Maduro.png"),
+        PUTIN ("resources/Putin.png"),
+        TRUMP ("resources/Trump.png");
+
+        private String url;
+
+        EnemyPicture(String url){
+            this.url = url;
+        }
+
+        public String getUrl(){
+            return this.url;
+        }
+
+    }
+
 }

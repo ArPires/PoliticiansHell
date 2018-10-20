@@ -1,7 +1,6 @@
 package org.academiadecodigo.politicianshell.player;
 
 import org.academiadecodigo.politicianshell.Direction;
-import org.academiadecodigo.politicianshell.weapons.Bullet;
 import org.academiadecodigo.simplegraphics.keyboard.Keyboard;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEvent;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEventType;
@@ -10,10 +9,12 @@ import org.academiadecodigo.simplegraphics.keyboard.KeyboardHandler;
 public class PlayerKeyboard implements KeyboardHandler {
 
     private Player player;
-    private Bullet bullet;
+    private boolean shot;
 
     public PlayerKeyboard(Player player) {
+
         this.player = player;
+        shot = true;
 
         Keyboard k = new Keyboard(this);
 
@@ -50,31 +51,37 @@ public class PlayerKeyboard implements KeyboardHandler {
 
     @Override
     public void keyPressed(KeyboardEvent e) {
-        if(e.getKey() == KeyboardEvent.KEY_LEFT) {
+
+        if (e.getKey() == KeyboardEvent.KEY_LEFT) {
             player.setDirection(Direction.LEFT);
         }
-        if(e.getKey() == KeyboardEvent.KEY_RIGHT) {
+
+        if (e.getKey() == KeyboardEvent.KEY_RIGHT) {
             player.setDirection(Direction.RIGHT);
         }
-        if(e.getKey() == KeyboardEvent.KEY_SPACE) {
-            player.shoot();
+
+        if (e.getKey() == KeyboardEvent.KEY_SPACE) {
+            if (shot) {
+                player.setTrigger(true);
+                shot = false;
+            }
         }
     }
 
 
     @Override
     public void keyReleased(KeyboardEvent e) {
-        if(e.getKey() == KeyboardEvent.KEY_LEFT) {
+
+        if (e.getKey() == KeyboardEvent.KEY_LEFT) {
             player.setDirection(null);
         }
-        if(e.getKey() == KeyboardEvent.KEY_RIGHT) {
+
+        if (e.getKey() == KeyboardEvent.KEY_RIGHT) {
             player.setDirection(null);
         }
-        /*if(e.getKey() == KeyboardEvent.KEY_SPACE) {
-        }*/
+
+        if (e.getKey() == KeyboardEvent.KEY_SPACE) {
+            shot = true;
+        }
     }
-
-
-
-
 }

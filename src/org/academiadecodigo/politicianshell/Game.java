@@ -2,20 +2,28 @@ package org.academiadecodigo.politicianshell;
 
 import org.academiadecodigo.politicianshell.enemies.Enemy;
 import org.academiadecodigo.politicianshell.enemies.EnemyType;
+import org.academiadecodigo.politicianshell.field.CollisionDetector;
 import org.academiadecodigo.politicianshell.field.Field;
 import org.academiadecodigo.politicianshell.player.Player;
+import org.academiadecodigo.politicianshell.bullets.Bullet;
+import java.util.LinkedList;
 
 public class Game {
 
+    private CollisionDetector collisionDetection;
+    private Player player;
     private Enemy[] enemies;
     private Field gameField;
     private Status gameStatus;
     private Menu menu;
-    private Player player;
+    private LinkedList<Bullet> bulletList;
+    private Bullet bullet;
 
     public Game(){
+
         gameField = new Field();
         menu = new Menu();
+
     }
 
     public void preGame() throws InterruptedException {
@@ -41,16 +49,23 @@ public class Game {
         //player = new Player(Field.WIDTH/2 - 15, Field.HEIGHT - 100, 30, 40);
         player = new Player();
 
+        collisionDetection = new CollisionDetector(enemies);
+
+        //player = new Player(Field.WIDTH / 2 - 15, Field.HEIGHT - 100, 30, 40);
+
+        bulletList = new LinkedList<Bullet>();
     }
 
-    public Enemy[] createEnemies (int enemyNumber, int x, int y) {
-        //int x = 0;
-        //int y = 50;
+    public void addBulletInGame(Bullet bullet) {
+        bulletList.add(bullet);
+    }
+
+    private Enemy[] createEnemies(int enemyNumber, int x, int y) {
 
         Enemy[] enemiesTemp = new Enemy[enemyNumber];
 
         for (int i = 0; i < enemyNumber; i++) {
-            if (i == 15 || i == 30){
+            if (i % 15 == 0) {
                 y += 30;
                 x = 20;
             }
@@ -62,33 +77,55 @@ public class Game {
     }
 
 
-    public void start()throws InterruptedException {
+    public void start() throws InterruptedException {
 
         while (true) {
 
             player.move();
 
-            moveAllPoliticians();
+            if (player.getTrigger()) {
 
-            Thread.sleep(200);
+                bulletList.add(player.shoot());
+
+            }
+
+            for (Bullet bullet : bulletList) {
+
+                if (bullet.getFired()) {
+
+                    player.loadBullet(bullet);
+                    bulletList.remove(bullet);
+
+                }
+
+                bullet.move();
+                bullet.stop();
+
+            }
+
+            moveAllEnemies();
+
+            Thread.sleep(100);
 
         }
     }
 
-    public void moveAllPoliticians() {
+    public void moveAllEnemies() {
 
         for (Enemy enemy : enemies) {
-
-            enemy.movePoliticians();
-
+            enemy.moveEnemy();
         }
 
+        for (Bullet bullet : bulletList) {
+            collisionDetection.check(bullet);
+        }
     }
 
-    public static enum Status {
+    public enum Status {
+
         MENU,
         PLAY,
         QUIT
-    }
 
+    }
 }
