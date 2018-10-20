@@ -1,7 +1,6 @@
 package org.academiadecodigo.politicianshell.enemies;
 
 
-import org.academiadecodigo.politicianshell.field.Field;
 import org.academiadecodigo.politicianshell.Direction;
 import org.academiadecodigo.politicianshell.weapons.Bullet;
 import org.academiadecodigo.simplegraphics.graphics.Color;
@@ -15,6 +14,7 @@ public class Enemy {
     private int currentHealth;
     private Rectangle enemyGfx;
     private Direction direction = Direction.RIGHT;
+    private int waitingTime = 0;
 
 
     public Enemy(EnemyType enemyType, int x, int y) {
@@ -47,18 +47,27 @@ public class Enemy {
                 politicianMoveDownToRight();
                 break;
         }
-
+        waitingTime++;
     }
 
     public void politicianMoveLeft() {
-        enemyGfx.translate(-15, 0);
-        direction = Direction.DOWN_TO_RIGHT;
+         if (waitingTime == 4) {
+
+            waitingTime = 0;
+            direction = Direction.DOWN_TO_RIGHT;
+        }
+
+        enemyGfx.translate(-5, 0);
     }
 
 
     public void politicianMoveRight() {
-        enemyGfx.translate(15, 0);
-        direction = Direction.DOWN_TO_LEFT;
+        if (waitingTime == 4) {
+            waitingTime = 0;
+
+            direction = Direction.DOWN_TO_LEFT;
+        }
+        enemyGfx.translate(5, 0);
     }
 
     public void politicianMoveDownToLeft() {
@@ -85,21 +94,27 @@ public class Enemy {
     }
 
     public boolean isDead() {
-        if(dead == true) {
-            enemyGfx.delete();
-        }
         return this.dead;
     }
 
-    public void setDead(boolean isDead) {this.dead = isDead;}
-
+    public void setDead(boolean isDead) {
+        this.dead = isDead;
+        enemyGfx.delete();
+    }
 
     public int getEnemyGfxX() {
-        return enemyGfx.getX();}
+        return enemyGfx.getX();
+    }
 
-    public int getEnemyGfxY() { return enemyGfx.getY();}
+    public int getEnemyGfxY() {
+        return enemyGfx.getY();
+    }
 
-    public int getEnemyGfxWidth() { return enemyGfx.getWidth();}
+    public int getEnemyGfxWidth() {
+        return enemyGfx.getWidth();
+    }
 
-    public int getEnemyGfxHeight() { return enemyGfx.getHeight();}
+    public int getEnemyGfxHeight() {
+        return enemyGfx.getHeight();
+    }
 }

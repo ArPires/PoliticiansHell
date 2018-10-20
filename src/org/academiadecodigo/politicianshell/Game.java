@@ -71,38 +71,36 @@ public class Game {
             }
 
             for (Bullet bullet : listBullets) {
+                if (bullet.getFired()) {
+                    player.loadBullet(bullet);
+                    listBullets.remove(bullet);
+                }
                 bullet.move();
                 bullet.stop();
+
             }
+
+            // the time of enemies movement
 
             moveAllPoliticians();
 
-            //movelAll();
 
-            Thread.sleep(200);
+            Thread.sleep(100);
 
         }
     }
 
     public void moveAllPoliticians() {
-/*
+
         for (Enemy enemy : enemies) {
 
-            //enemy.movePoliticians();
+            enemy.movePoliticians();
 
-        }*/
+        }
         for (Bullet bullet : listBullets) {
             collisionDetection.check(bullet);
         }
 
-        for (int i = 0; i < enemies.length; i++){
-
-
-
-        }
-    }
-
-    public void movelAll() {
 
     }
 }

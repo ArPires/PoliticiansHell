@@ -27,9 +27,7 @@ public class Player {
 
         listBullets = new LinkedList<>();
 
-        for (int i = 0; i < 100; i++) {
-            listBullets.add(new Bullet(x, y));
-        }
+
 
     }
 
@@ -76,12 +74,21 @@ public class Player {
             return null;
         }
 
+        listBullets.add(new Bullet( getX(), getY() ));
+
         Bullet bullet = listBullets.getLast();
         listBullets.removeLast();
 
+
         setShooting(false);
 
+
         return bullet;
+    }
+
+    public void loadBullet(Bullet bullet){
+        bullet.setFired(false);
+        listBullets.addFirst(bullet);
     }
 
     public int getX() {
