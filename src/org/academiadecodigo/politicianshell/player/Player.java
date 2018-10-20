@@ -27,6 +27,8 @@ public class Player {
     public Player() {
         int x = Field.WIDTH/2 - 15;
         int y = Field.HEIGHT - 100;
+        /*int x = grid.getWidth()/2 - 15;
+        int y = grid.getHeight() - 100;*/
         playerGfx = new Picture(x, y,"resources/ZePovinho.png");
         playerGfx.draw();
         playerKeyboard = new PlayerKeyboard(this);
