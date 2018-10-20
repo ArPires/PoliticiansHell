@@ -6,6 +6,7 @@ import org.academiadecodigo.politicianshell.Direction;
 import org.academiadecodigo.politicianshell.weapons.Bullet;
 import org.academiadecodigo.simplegraphics.graphics.Color;
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
+import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 public class Enemy {
 
@@ -13,16 +14,20 @@ public class Enemy {
     private boolean dead;
     //private BulletType bulletType;
     private int currentHealth;
-    private Rectangle enemyGfx;
+    private Picture enemyGfx;
     private Direction direction = Direction.RIGHT;
 
 
     public Enemy(EnemyType enemyType, int x, int y) {
         this.enemyType = enemyType;
         currentHealth = enemyType.getHealth();
-        enemyGfx = new Rectangle(x, y, 15, 15);
-        enemyGfx.setColor(Color.YELLOW);
-        enemyGfx.fill();
+        int random = (int) (Math.random() * EnemyPicture.values().length);
+        String enemyPicture = EnemyPicture.values()[random].getUrl();
+
+        enemyGfx = new Picture(x, y, enemyPicture.toString());
+        enemyGfx.draw();
+        //enemyGfx.setColor(Color.YELLOW);
+        //enemyGfx.fill();
     }
 
     public void movePoliticians() {

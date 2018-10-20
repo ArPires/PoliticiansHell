@@ -5,20 +5,32 @@ import org.academiadecodigo.politicianshell.field.Field;
 import org.academiadecodigo.politicianshell.weapons.Bullet;
 import org.academiadecodigo.simplegraphics.graphics.Color;
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
+import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 public class Player {
 
-    private Rectangle rectangle;
+    private Picture playerGfx;
     private Bullet bullet;
     private PlayerKeyboard playerKeyboard;
     private Direction direction;
     private boolean shooting;
 
-    public Player(int x, int y, int width, int height) {
+ /*   public Player(int x, int y, int width, int height) {
 
         rectangle = new Rectangle(x,y,width,height);
         rectangle.setColor(Color.BLUE);
         rectangle.fill();
+        playerKeyboard = new PlayerKeyboard(this);
+
+    }*/
+
+    public Player() {
+        int x = Field.WIDTH/2 - 15;
+        int y = Field.HEIGHT - 100;
+        /*int x = grid.getWidth()/2 - 15;
+        int y = grid.getHeight() - 100;*/
+        playerGfx = new Picture(x, y,"resources/ZePovinho.png");
+        playerGfx.draw();
         playerKeyboard = new PlayerKeyboard(this);
 
     }
@@ -38,17 +50,17 @@ public class Player {
 
     public void moveLeft() {
 
-        if(rectangle.getX() > 10) {
+        if(playerGfx.getX() > 10) {
 
-            rectangle.translate(-10, 0);
+            playerGfx.translate(-10, 0);
         }
     }
 
     public void moveRight() {
 
-        if(rectangle.getX() < Field.WIDTH - 40) {
+        if(playerGfx.getX() < Field.WIDTH - 40) {
 
-            rectangle.translate(10,0);
+            playerGfx.translate(10,0);
         }
     }
 
@@ -56,17 +68,17 @@ public class Player {
         if(shooting) {
             return;
         }
-        bullet = new Bullet(rectangle.getX()+13,rectangle.getY());
+        bullet = new Bullet(playerGfx.getX()+13,playerGfx.getY());
         bullet.move();
 
     }
 
     public int getX(){
-        return rectangle.getX();
+        return playerGfx.getX();
     }
 
     public int getY(){
-        return rectangle.getY();
+        return playerGfx.getY();
     }
 
     public void setDirection(Direction direction) {

@@ -7,21 +7,39 @@ import org.academiadecodigo.politicianshell.player.Player;
 
 public class Game {
 
-    private Field field;
-    private Player player;
     private Enemy[] enemies;
-    private Enemy[] enemies1;
+    private Field gameField;
+    private Status gameStatus;
+    private Menu menu;
+    private Player player;
+
     public Game(){
-        field = new Field();
+        gameField = new Field();
+        menu = new Menu();
+    }
+
+    public void preGame() throws InterruptedException {
+
+        gameStatus = Status.MENU;
+        gameStatus = menu.play();
+
+        if (gameStatus == Status.QUIT) {
+            System.exit(0);
+        }
+
+        if (gameStatus == Status.PLAY) {
+            init();
+        }
     }
 
     public void init() {
 
-        field.init();
+        gameField.init();
 
         enemies = createEnemies(45, 20, 50);
 
-        player = new Player(Field.WIDTH/2 - 15, Field.HEIGHT - 100, 30, 40);
+        //player = new Player(Field.WIDTH/2 - 15, Field.HEIGHT - 100, 30, 40);
+        player = new Player();
 
     }
 
@@ -65,6 +83,12 @@ public class Game {
 
         }
 
+    }
+
+    public static enum Status {
+        MENU,
+        PLAY,
+        QUIT
     }
 
 }
