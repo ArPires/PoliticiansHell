@@ -71,17 +71,19 @@ public class Game {
             }
 
             for (Bullet bullet : listBullets) {
+                if (bullet.getFired()) {
+                    player.loadBullet(bullet);
+                    listBullets.remove(bullet);
+                }
                 bullet.move();
                 bullet.stop();
-                collisionDetection.check(bullet);
+
             }
 
+            moveAllPoliticians();
 
-            //moveAllPoliticians();
 
-            //movelAll();
-
-            Thread.sleep(200);
+            Thread.sleep(100);
 
         }
     }
@@ -90,20 +92,13 @@ public class Game {
 
         for (Enemy enemy : enemies) {
 
-            //enemy.movePoliticians();
+            enemy.movePoliticians();
 
         }
-        /*
         for (Bullet bullet : listBullets) {
+            collisionDetection.check(bullet);
+        }
 
-            for (int i = 0; i < enemies.length; i++) {
 
-                System.out.println("bullet " + bullet.bulletGetY());
-                System.out.println("enemy " + enemies[i].getEnemyGfxX());
-                System.out.println("----");
-
-            }
-        }*/
     }
-
 }

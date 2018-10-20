@@ -20,37 +20,41 @@ public class CollisionDetection {
 
 
         for (int i = 0; i < enemies.length; i++) {
-/*
-            int eX = enemies[i].getEnemyGfxX();
-            int eY = enemies[i].getEnemyGfxY();
-            int eW = enemies[i].getEnemyGfxWidth();
-            int eH = enemies[i].getEnemyGfxHeight();
 
-            int y = enemies[i].getEnemyGfxY() + enemies[i].getEnemyGfxHeight();
-            int x = enemies[i].getEnemyGfxX() + enemies[i].getEnemyGfxWidth();
+            int enemyY = enemies[i].getEnemyGfxY() + enemies[i].getEnemyGfxHeight();
+            int enemyMaxX = enemies[i].getEnemyGfxX() + enemies[i].getEnemyGfxWidth();
 
-            System.out.println(y + " enemy " + i);
-            System.out.println(bullet.bulletGetX()+" bullet");
-            //System.out.println(eX + " - " + eY + " - " + eW + " - " + eH);
-            //System.out.println(bullet.bulletGetX() + "buX");
-            //System.out.println(bullet.bulletGetY() + "buY");
-            if (y > bullet.bulletGetY()){
+            System.out.println(enemyY + " enemy " + i);
+            System.out.println(bullet.bulletGetY() + " bullet");
+
+            // verify Y bullet is same
+            boolean verifyY = bullet.bulletGetY() < (enemies[i].getEnemyGfxY() + enemies[i].getEnemyGfxHeight());
+            // verify X bullet  is more than enemy
+            boolean verifyX = (bullet.bulletGetX() + bullet.bulletGetWidth()) > enemies[i].getEnemyGfxX();
+            // verify the max with of enemy
+            boolean verifyMaxX = (bullet.bulletGetX()) < (enemies[i].getEnemyGfxX() + enemies[i].getEnemyGfxWidth());
+
+            System.out.println(enemies[i].isDead()+ " n " + i);
+
+            if (verifyY && verifyX && verifyMaxX && !enemies[i].isDead() && !bullet.getHit()) {
                 System.out.println("hit");
-            }*/
-            System.out.println(bullet.bulletGetY());
-            System.out.println(enemies[i].getEnemyGfxY()+" en");
-            if (bullet.bulletGetY() < enemies[i].getEnemyGfxY() && bullet.bulletGetWidth()){
-                System.out.println("hit");
+                enemies[i].setDead(true);
+                bullet.stop();
+                bullet.hit(true);
+                //remove bullet
+                bullet.remove();
+                // add points
+
 
             }
 
-            if (bullet.bulletGetX() < (enemies[i].getEnemyGfxX() + enemies[i].getEnemyGfxWidth()) &&
+            /*if (bullet.bulletGetX() < (enemies[i].getEnemyGfxX() + enemies[i].getEnemyGfxWidth()) &&
                     (bullet.bulletGetX() + bullet.bulletGetWidth()) > enemies[i].getEnemyGfxX() &&
                     bullet.bulletGetY() == (enemies[i].getEnemyGfxY() + enemies[i].getEnemyGfxHeight())) {
                 System.out.println("hit");
                 enemies[i].setDead(true);
                 enemies[i].isDead();
-            }
+            }*/
         }
 
     }
