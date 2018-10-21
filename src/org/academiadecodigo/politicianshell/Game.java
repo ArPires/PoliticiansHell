@@ -83,7 +83,7 @@ public class Game {
 
             player.move();
 
-            if (player.getTrigger()) {
+            if (player.getReadyToNextShoot()) {
 
                 bulletList.add(player.shoot());
 
@@ -110,7 +110,7 @@ public class Game {
         }
     }
 
-    public void moveAllEnemies() {
+    public void moveAllEnemies() throws InterruptedException {
 
         for (Enemy enemy : enemies) {
             enemy.moveEnemy();

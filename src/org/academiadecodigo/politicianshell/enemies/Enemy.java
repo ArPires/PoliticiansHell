@@ -8,7 +8,7 @@ public class Enemy {
 
     private EnemyType enemyType;
     private boolean dead;
-    private int currentHealth;
+    //private int currentHealth;
     private Picture enemyGfx;
     private Direction direction = Direction.RIGHT;
     private int timeToChangeDirection;
@@ -16,7 +16,7 @@ public class Enemy {
     public Enemy(EnemyType enemyType, int x, int y) {
 
         this.enemyType = enemyType;
-        currentHealth = enemyType.getHealth();
+        //currentHealth = enemyType.getHealth();
         int random = (int) (Math.random() * (EnemyPicture.values().length - 2));
         String enemyPicture = EnemyPicture.values()[random].getUrl();
         enemyGfx = new Picture(x, y, enemyPicture);
@@ -88,14 +88,14 @@ public class Enemy {
         direction = Direction.RIGHT;
     }
 
-    public void hit(Bullet bullet) {
+    public void hit() {
 
         //currentHealth = enemyType.getHealth() > weaponType.getBulletPower() ? currentHealth - weaponType.getBulletPower() : 0;
 
-        if (currentHealth == 0) {
+        //if (currentHealth == 0) {
             dead = true;
-            System.out.println("This enemy is dead!");
-        }
+         //   System.out.println("This enemy is dead!");
+       // }
     }
 
     public boolean isDead() {

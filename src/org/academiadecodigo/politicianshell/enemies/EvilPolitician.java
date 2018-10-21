@@ -6,23 +6,35 @@ import org.academiadecodigo.politicianshell.bullets.Bullet;
 public class EvilPolitician extends Enemy {
 
     private boolean dead;
-    private int armour;
-    private Bullet[] evilBullets;
+    private int curruptionLevel;
+    //private Bullet[] evilBullets;
 
     public EvilPolitician(EnemyType enemyType, int x, int y) {
 
         super(EnemyType.EVIL_POLITICIAN, x, y);
         dead = false;
-        armour = 500;
-        evilBullets = new Bullet[100];
+        curruptionLevel = 10;
+       // evilBullets = new Bullet[100];
 
     }
 
-    public int getArmour() {
-        return armour;
+   @Override
+   public void hit() {
+       if (curruptionLevel > 0) {
+           curruptionLevel --;
+       }
+       if (curruptionLevel <= 0){
+           super.hit();
+           curruptionLevel = 0;
+       }
+
     }
 
-    @Override
+    /* public int getCurruptionLevel() {
+        return curruptionLevel;
+    }
+
+   @Override
     public void moveEnemy() {
         int maxY = 300;
 
@@ -78,6 +90,6 @@ public class EvilPolitician extends Enemy {
     @Override
     public boolean isDead() {
         return dead;
-    }
+    }*/
 }
 

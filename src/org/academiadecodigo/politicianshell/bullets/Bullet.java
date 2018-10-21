@@ -6,6 +6,7 @@ import org.academiadecodigo.simplegraphics.pictures.Picture;
 public class Bullet {
 
     private Picture bulletGfx;
+    private Picture splashedBulletGfx;
     //private boolean move;
     private boolean fired;
     private boolean hit;
@@ -46,6 +47,9 @@ public class Bullet {
 
     public void hit(boolean hit){
         this.hit = hit;
+       /* bulletGfx.delete();
+        bulletGfx = new Picture (bulletGetX() , bulletGetY(), "resources/tomatoSplash.png");
+        bulletGfx.draw();*/
     }
 
     public boolean getHit(){
@@ -66,5 +70,17 @@ public class Bullet {
 
     public void remove() {
         bulletGfx.delete();
+
     }
+
+    public void splash() throws InterruptedException {
+        splashedBulletGfx = new Picture(bulletGetX(), bulletGetY(), "resources/tomatoSplash.png");
+        splashedBulletGfx.draw();
+
+        Thread.sleep(100);
+
+        splashedBulletGfx.delete();
+
+    }
+
 }

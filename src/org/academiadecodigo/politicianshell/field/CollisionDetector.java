@@ -13,7 +13,7 @@ public class CollisionDetector {
         this.enemies = enemies;
     }
 
-    public void check(Bullet bullet) {
+    public void check(Bullet bullet) throws InterruptedException {
 
         for (int i = 0; i < enemies.length; i++) {
 
@@ -31,10 +31,11 @@ public class CollisionDetector {
 
             if (verifyY && verifyX && verifyMaxX && !enemies[i].isDead() && !bullet.getHit()) {
 
-                enemies[i].setDead(true);
                 bullet.stop();
                 bullet.hit(true);
                 bullet.remove();
+                bullet.splash();
+                enemies[i].setDead(true);
 
             }
         }

@@ -32,7 +32,7 @@ public class Player {
         this.readyToNextShoot = readyToNextShoot;
     }
 
-    public boolean getTrigger() {
+    public boolean getReadyToNextShoot() {
         return readyToNextShoot;
     }
 
