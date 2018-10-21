@@ -6,6 +6,9 @@ import org.academiadecodigo.politicianshell.field.CollisionDetector;
 import org.academiadecodigo.politicianshell.field.Field;
 import org.academiadecodigo.politicianshell.player.Player;
 import org.academiadecodigo.politicianshell.bullets.Bullet;
+import org.academiadecodigo.simplegraphics.graphics.Color;
+import org.academiadecodigo.simplegraphics.graphics.Text;
+
 import java.util.LinkedList;
 
 public class Game {
@@ -18,11 +21,26 @@ public class Game {
     private Menu menu;
     private LinkedList<Bullet> bulletList;
     private Bullet bullet;
+    private Text gameOverText;
+    private Text roundOverText;
 
     public Game(){
 
         gameField = new Field();
         menu = new Menu();
+        gameField.init();
+        gameOverText = new Text(250,350, "GAME OVER");
+        gameOverText.setColor(Color.RED);
+        gameOverText.grow(100, 50);
+
+
+        /*enemies = createEnemies(40, 20, 50);
+        player = new Player();
+        collisionDetection = new CollisionDetector(enemies);
+        bulletList = new LinkedList<Bullet>();*/
+        //gameField.init();
+        player = new Player();
+
 
     }
 
@@ -36,24 +54,29 @@ public class Game {
         }
 
         if (gameStatus == Status.PLAY) {
-            init();
+            //init();
         }
     }
 
     public void init() {
 
-        gameField.init();
+        /*if(player.getLife() == 0) {
+            System.out.println("GAME OVER");
+            return;
+        }*/
+
+        player.showPlayer();
 
         enemies = createEnemies(40, 20, 50);
 
         //player = new Player(Field.WIDTH/2 - 15, Field.HEIGHT - 100, 30, 40);
-        player = new Player();
+
+        bulletList = new LinkedList<Bullet>();
 
         collisionDetection = new CollisionDetector(enemies);
 
         //player = new Player(Field.WIDTH / 2 - 15, Field.HEIGHT - 100, 30, 40);
 
-        bulletList = new LinkedList<Bullet>();
     }
 
     public void addBulletInGame(Bullet bullet) {
@@ -112,14 +135,47 @@ public class Game {
 
     public void moveAllEnemies() throws InterruptedException {
 
+
+
         for (Enemy enemy : enemies) {
+            if(player.getLife() == 0) {
+                deleteBullets();
+                player.hidePlayer();
+                deleteEnemies();
+                gameOverText.draw();
+                return;
+            }
+            if((enemy.getEnemyGfxY() + enemy.getEnemyGfxHeight()) > player.getY()) {
+                player.setLife(player.getLife() - 1);
+                System.out.println(player.getLife());
+                deleteBullets();
+                deleteEnemies();
+                init();
+                start();
+                return;
+            }
             enemy.moveEnemy();
+
         }
 
         for (Bullet bullet : bulletList) {
             collisionDetection.check(bullet);
         }
     }
+
+    public void deleteEnemies() {
+        for(Enemy enemy : enemies) {
+            enemy.setDead(true);
+        }
+    }
+
+    public void deleteBullets() {
+        for(Bullet bullet : bulletList) {
+            bullet.remove();
+        }
+    }
+
+
 
     public enum Status {
 

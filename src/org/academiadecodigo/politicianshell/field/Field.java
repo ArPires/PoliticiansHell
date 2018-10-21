@@ -11,6 +11,7 @@ public class Field {
     private Picture grid;
 
     public Field(){
+        grid = new Picture(0, PADDING_BOTTOM, "resources/HellBg1.png");
 
 // RETIFICAR A NECESSIDADE DE COLOCAR ESTE COISO
 
@@ -21,7 +22,7 @@ public class Field {
 
     public void init(){
 
-        grid = new Picture(0, PADDING_BOTTOM, "resources/Hellbg1.png");
+
         grid.draw();
 
     }

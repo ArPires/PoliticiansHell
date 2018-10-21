@@ -70,7 +70,6 @@ public class Bullet {
 
     public void remove() {
         bulletGfx.delete();
-
     }
 
     public void splash() throws InterruptedException {

@@ -1,5 +1,6 @@
 package org.academiadecodigo.politicianshell.field;
 
+import org.academiadecodigo.politicianshell.Game;
 import org.academiadecodigo.politicianshell.enemies.Enemy;
 import org.academiadecodigo.politicianshell.player.Player;
 import org.academiadecodigo.politicianshell.bullets.Bullet;
@@ -40,4 +41,20 @@ public class CollisionDetector {
             }
         }
     }
+
+   /* public boolean checkPlayer(Player player) throws InterruptedException {
+        if(player.getLife() == 0) {
+            System.out.println("GAME OVER");
+        }
+        for(int i = 0; i < enemies.length; i++) {
+            if((enemies[i].getEnemyGfxY() + enemies[i].getEnemyGfxHeight()) > player.getY()) {
+                player.setLife(player.getLife() - 1);
+                System.out.println(player.getLife());
+                return true;
+            }
+        }
+        return false;
+
+    }*/
+
 }

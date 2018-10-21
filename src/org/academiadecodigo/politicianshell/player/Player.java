@@ -16,6 +16,7 @@ public class Player {
     private boolean readyToNextShoot;
     private LinkedList<Bullet> savedBulletsList;
     //private Field grid;
+    private int life = 3;
 
     public Player() {
         int x = Field.WIDTH / 2 - 15;
@@ -23,9 +24,25 @@ public class Player {
         //int x = grid.getWidth()/2 - 15;
         //int y = grid.getHeight() - 100;
         playerGfx = new Picture(x, y, "resources/ZePovinho.png");
-        playerGfx.draw();
+
         playerKeyboard = new PlayerKeyboard(this);
         savedBulletsList = new LinkedList<>();
+    }
+
+    public int getLife() {
+        return life;
+    }
+
+    public void setLife(int life) {
+        this.life = life;
+    }
+
+    public void showPlayer() {
+        playerGfx.draw();
+    }
+
+    public void hidePlayer() {
+        playerGfx.delete();
     }
 
     public void setReadyToNextShoot(boolean readyToNextShoot) {
@@ -84,6 +101,12 @@ public class Player {
 
         savedBulletsList.addFirst(bullet);
 
+    }
+
+    public void removeBullets() {
+        for(Bullet bullet : savedBulletsList) {
+            bullet.remove();
+        }
     }
 
     public int getX(){
