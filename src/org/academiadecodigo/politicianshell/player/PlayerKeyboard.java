@@ -62,7 +62,7 @@ public class PlayerKeyboard implements KeyboardHandler {
 
         if (e.getKey() == KeyboardEvent.KEY_SPACE) {
             if (shot) {
-                player.setTrigger(true);
+                player.setReadyToNextShoot(true);
                 shot = false;
             }
         }

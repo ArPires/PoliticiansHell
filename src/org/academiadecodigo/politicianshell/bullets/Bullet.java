@@ -1,10 +1,11 @@
 package org.academiadecodigo.politicianshell.bullets;
 import org.academiadecodigo.simplegraphics.graphics.Color;
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
+import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 public class Bullet {
 
-    private Rectangle bulletGfx;
+    private Picture bulletGfx;
     //private boolean move;
     private boolean fired;
     private boolean hit;
@@ -14,9 +15,11 @@ public class Bullet {
         //move = false;
         fired = false;
         hit = false;
-        bulletGfx = new Rectangle(x, y, 4, 10);
+        bulletGfx = new Picture(x, y, "resources/tomato.png");
+        bulletGfx.draw();
+        /*bulletGfx = new Rectangle(x, y, 4, 10);
         bulletGfx.setColor(Color.RED);
-        bulletGfx.fill();
+        bulletGfx.fill();*/
 
     }
 

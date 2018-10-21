@@ -44,7 +44,7 @@ public class Game {
 
         gameField.init();
 
-        enemies = createEnemies(45, 20, 50);
+        enemies = createEnemies(40, 20, 50);
 
         //player = new Player(Field.WIDTH/2 - 15, Field.HEIGHT - 100, 30, 40);
         player = new Player();
@@ -65,12 +65,12 @@ public class Game {
         Enemy[] enemiesTemp = new Enemy[enemyNumber];
 
         for (int i = 0; i < enemyNumber; i++) {
-            if (i % 15 == 0) {
-                y += 30;
+            if (i % 10 == 0) {
+                y += 50;
                 x = 20;
             }
             enemiesTemp[i] = new Enemy(EnemyType.MINION_POLITICIAN, x, y);
-            x += 30;
+            x += 45;
         }
 
         return enemiesTemp;

@@ -13,7 +13,7 @@ public class Player {
     //private Bullet bullet;
     private PlayerKeyboard playerKeyboard;
     private Direction direction;
-    private boolean triggerOn;
+    private boolean readyToNextShoot;
     private LinkedList<Bullet> savedBulletsList;
     //private Field grid;
 
@@ -28,12 +28,12 @@ public class Player {
         savedBulletsList = new LinkedList<>();
     }
 
-    public void setTrigger(boolean triggerOn) {
-        this.triggerOn = triggerOn;
+    public void setReadyToNextShoot(boolean readyToNextShoot) {
+        this.readyToNextShoot = readyToNextShoot;
     }
 
     public boolean getTrigger() {
-        return triggerOn;
+        return readyToNextShoot;
     }
 
     public void move() {
@@ -64,7 +64,7 @@ public class Player {
 
     public Bullet shoot() {
 
-        if (!triggerOn) {
+        if (!readyToNextShoot) {
             return null;
         }
 
@@ -72,7 +72,7 @@ public class Player {
 
         Bullet bullet = savedBulletsList.removeLast();
 
-        setTrigger(false);
+        setReadyToNextShoot(false);
 
         return bullet;
 

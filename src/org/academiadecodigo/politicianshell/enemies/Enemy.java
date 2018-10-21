@@ -11,16 +11,17 @@ public class Enemy {
     private int currentHealth;
     private Picture enemyGfx;
     private Direction direction = Direction.RIGHT;
-    private int waitingTime = 0;
+    private int timeToChangeDirection;
 
     public Enemy(EnemyType enemyType, int x, int y) {
 
         this.enemyType = enemyType;
         currentHealth = enemyType.getHealth();
-        int random = (int) (Math.random() * EnemyPicture.values().length);
+        int random = (int) (Math.random() * (EnemyPicture.values().length - 2));
         String enemyPicture = EnemyPicture.values()[random].getUrl();
         enemyGfx = new Picture(x, y, enemyPicture);
         enemyGfx.draw();
+        timeToChangeDirection = 4;
 
     }
 
@@ -49,14 +50,14 @@ public class Enemy {
                 break;
         }
 
-        waitingTime++;
+        timeToChangeDirection--;
 
     }
 
     public void enemyMoveLeft() {
 
-        if (waitingTime == 4) {
-            waitingTime = 0;
+        if (timeToChangeDirection == 0) {
+            timeToChangeDirection = 4;
             direction = Direction.DOWN_TO_RIGHT;
         }
 
@@ -67,8 +68,8 @@ public class Enemy {
 
     public void enemyMoveRight() {
 
-        if (waitingTime == 4) {
-            waitingTime = 0;
+        if (timeToChangeDirection == 0) {
+            timeToChangeDirection = 4;
             direction = Direction.DOWN_TO_LEFT;
         }
 
@@ -130,7 +131,10 @@ public class Enemy {
         BOLSONARO ("resources/Bolsonaro.png"),
         MADURO ("resources/Maduro.png"),
         PUTIN ("resources/Putin.png"),
-        TRUMP ("resources/Trump.png");
+        PASSOS_COELHO ("resources/PassosCoelho.png"),
+        ANTONIO_COSTA ("resources/AntonioCosta.png"),
+        TRUMP ("resources/TrumpXL.png"),
+        KIM_JONG_UN ("resources/KimJongUnXL.jpg");
 
         private String url;
 
