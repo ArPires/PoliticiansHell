@@ -22,7 +22,6 @@ public class Field {
 
     public void init(){
 
-
         grid.draw();
 
     }

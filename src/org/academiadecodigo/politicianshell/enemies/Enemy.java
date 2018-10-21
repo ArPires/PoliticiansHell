@@ -4,7 +4,7 @@ import org.academiadecodigo.politicianshell.Direction;
 import org.academiadecodigo.politicianshell.bullets.Bullet;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
-public class Enemy {
+public abstract class Enemy {
 
     private EnemyType enemyType;
     private boolean dead;
@@ -12,18 +12,31 @@ public class Enemy {
     private Picture enemyGfx;
     private Direction direction = Direction.RIGHT;
     private int timeToChangeDirection;
+    private int x;
+    private int y;
 
     public Enemy(EnemyType enemyType, int x, int y) {
 
         this.enemyType = enemyType;
+        this.x = x;
+        this.y = y;
         //currentHealth = enemyType.getHealth();
-        int random = (int) (Math.random() * (EnemyPicture.values().length - 2));
-        String enemyPicture = EnemyPicture.values()[random].getUrl();
+        String enemyPicture = getEnemyPicture();
         enemyGfx = new Picture(x, y, enemyPicture);
         enemyGfx.draw();
         timeToChangeDirection = 4;
 
     }
+    public abstract String getEnemyPicture();
+
+   /* public void showEnemy(String enemyPicture) {
+
+
+    }
+
+   public void showEnemy () {
+
+   }*/
 
     public void moveEnemy() {
 

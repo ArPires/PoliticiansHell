@@ -5,26 +5,32 @@ import org.academiadecodigo.politicianshell.bullets.Bullet;
 
 public class EvilPolitician extends Enemy {
 
-    private boolean dead;
+    //private boolean dead;
     private int curruptionLevel;
     //private Bullet[] evilBullets;
 
     public EvilPolitician(EnemyType enemyType, int x, int y) {
 
         super(EnemyType.EVIL_POLITICIAN, x, y);
-        dead = false;
+        //dead = false;
         curruptionLevel = 10;
        // evilBullets = new Bullet[100];
 
     }
 
+    @Override
+    public String getEnemyPicture() {
+        String enemyPicture = EnemyPicture.values()[7].getUrl();
+        return enemyPicture;
+    }
+
    @Override
-   public void hit() {
+   public void setDead (boolean isDead) {
        if (curruptionLevel > 0) {
-           curruptionLevel --;
+           curruptionLevel--;
        }
        if (curruptionLevel <= 0){
-           super.hit();
+           super.setDead(true);
            curruptionLevel = 0;
        }
 

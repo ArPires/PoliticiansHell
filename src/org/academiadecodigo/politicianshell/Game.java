@@ -2,6 +2,8 @@ package org.academiadecodigo.politicianshell;
 
 import org.academiadecodigo.politicianshell.enemies.Enemy;
 import org.academiadecodigo.politicianshell.enemies.EnemyType;
+import org.academiadecodigo.politicianshell.enemies.EvilPolitician;
+import org.academiadecodigo.politicianshell.enemies.MinionPolitician;
 import org.academiadecodigo.politicianshell.field.CollisionDetector;
 import org.academiadecodigo.politicianshell.field.Field;
 import org.academiadecodigo.politicianshell.player.Player;
@@ -16,6 +18,7 @@ public class Game {
     private CollisionDetector collisionDetection;
     private Player player;
     private Enemy[] enemies;
+    private int enemiesNumber;
     private Field gameField;
     private Status gameStatus;
     private Menu menu;
@@ -26,6 +29,7 @@ public class Game {
 
     public Game(){
 
+        enemiesNumber = 42;
         gameField = new Field();
         menu = new Menu();
         gameField.init();
@@ -34,14 +38,12 @@ public class Game {
         gameOverText.grow(100, 50);
 
 
-        /*enemies = createEnemies(40, 20, 50);
+        /*minionPoliticians = createEnemies(40, 20, 50);
         player = new Player();
-        collisionDetection = new CollisionDetector(enemies);
+        collisionDetection = new CollisionDetector(minionPoliticians);
         bulletList = new LinkedList<Bullet>();*/
         //gameField.init();
         player = new Player();
-
-
     }
 
     public void preGame() throws InterruptedException {
@@ -67,8 +69,7 @@ public class Game {
 
         player.showPlayer();
 
-        enemies = createEnemies(40, 20, 50);
-
+        enemies = createEnemies(enemiesNumber);
         //player = new Player(Field.WIDTH/2 - 15, Field.HEIGHT - 100, 30, 40);
 
         bulletList = new LinkedList<Bullet>();
@@ -79,25 +80,46 @@ public class Game {
 
     }
 
-    public void addBulletInGame(Bullet bullet) {
+    /*public void addBulletInGame(Bullet bullet) {
         bulletList.add(bullet);
-    }
+    }*/
 
-    private Enemy[] createEnemies(int enemyNumber, int x, int y) {
+    private Enemy[] createEnemies(int enemyNumber) {
 
-        Enemy[] enemiesTemp = new Enemy[enemyNumber];
+        int x = 20;
+        int y = 70;
 
-        for (int i = 0; i < enemyNumber; i++) {
+        Enemy[] enemiesTemp = new  Enemy[enemiesNumber];
+
+        enemiesTemp[enemyNumber - 1] = new EvilPolitician(EnemyType.EVIL_POLITICIAN, 150, 10);
+        enemiesTemp[enemyNumber - 2] = new EvilPolitician(EnemyType.EVIL_POLITICIAN, 350, 10);
+
+        for (int i = 0; i < enemyNumber - 2; i++) {
             if (i % 10 == 0) {
                 y += 50;
                 x = 20;
             }
-            enemiesTemp[i] = new Enemy(EnemyType.MINION_POLITICIAN, x, y);
+            enemiesTemp[i] = new MinionPolitician(EnemyType.MINION_POLITICIAN, x, y);
             x += 45;
+
         }
+
 
         return enemiesTemp;
     }
+
+
+
+    /*private EvilPolitician[] createEvilPolitician(int evilPoliticianNumber, int x, int y) {
+        EvilPolitician[] evilPoliticiansTemp = new EvilPolitician[evilPoliticianNumber];
+
+        for (int i = 0; i < evilPoliticianNumber; i++) {
+            evilPoliticiansTemp[i] = new EvilPolitician(EnemyType.EVIL_POLITICIAN, x, y);
+             x += 200;
+        }
+
+        return evilPoliticiansTemp;
+    }*/
 
 
     public void start() throws InterruptedException {
@@ -136,30 +158,32 @@ public class Game {
     public void moveAllEnemies() throws InterruptedException {
 
 
+        //if (minionPoliticiansNumber != 0) {
+            for (Enemy enemy : enemies) {
+                if (player.getLife() == 0) {
+                    deleteBullets();
+                    player.hidePlayer();
+                    deleteEnemies();
+                    gameOverText.draw();
+                    return;
+                }
+                if ((enemy.getEnemyGfxY() + enemy.getEnemyGfxHeight()) > player.getY()) {
+                    player.setLife(player.getLife() - 1);
+                    System.out.println(player.getLife());
+                    deleteBullets();
+                    deleteEnemies();
+                    init();
+                    start();
+                    return;
+                }
+                enemy.moveEnemy();
 
-        for (Enemy enemy : enemies) {
-            if(player.getLife() == 0) {
-                deleteBullets();
-                player.hidePlayer();
-                deleteEnemies();
-                gameOverText.draw();
-                return;
             }
-            if((enemy.getEnemyGfxY() + enemy.getEnemyGfxHeight()) > player.getY()) {
-                player.setLife(player.getLife() - 1);
-                System.out.println(player.getLife());
-                deleteBullets();
-                deleteEnemies();
-                init();
-                start();
-                return;
-            }
-            enemy.moveEnemy();
+        //}
 
-        }
 
         for (Bullet bullet : bulletList) {
-            collisionDetection.check(bullet);
+            collisionDetection.check(bullet, this);
         }
     }
 
@@ -175,7 +199,13 @@ public class Game {
         }
     }
 
+    public int getEnemiesNumber() {
+        return enemiesNumber;
+    }
 
+    public void setEnemiesNumber(int enemiesNumber) {
+        this.enemiesNumber = enemiesNumber;
+    }
 
     public enum Status {
 
