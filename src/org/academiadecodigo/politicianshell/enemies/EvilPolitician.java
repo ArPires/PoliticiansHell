@@ -1,20 +1,13 @@
 package org.academiadecodigo.politicianshell.enemies;
 
-import org.academiadecodigo.politicianshell.Direction;
-import org.academiadecodigo.politicianshell.bullets.Bullet;
-
 public class EvilPolitician extends Enemy {
 
-    //private boolean dead;
-    private int curruptionLevel;
-    //private Bullet[] evilBullets;
+    private int corruptionLevel;
 
     public EvilPolitician(EnemyType enemyType, int x, int y) {
 
         super(EnemyType.EVIL_POLITICIAN, x, y);
-        //dead = false;
-        curruptionLevel = 10;
-       // evilBullets = new Bullet[100];
+        corruptionLevel = 10;
 
     }
 
@@ -24,78 +17,18 @@ public class EvilPolitician extends Enemy {
         return enemyPicture;
     }
 
-   @Override
-   public void setDead (boolean isDead) {
-       if (curruptionLevel > 0) {
-           curruptionLevel--;
-       }
-       if (curruptionLevel <= 0){
+    @Override
+    public void setDead(boolean dead) {
+       if (corruptionLevel == 0) {
            super.setDead(true);
-           curruptionLevel = 0;
        }
-
-    }
-
-    /* public int getCurruptionLevel() {
-        return curruptionLevel;
-    }
-
-   @Override
-    public void moveEnemy() {
-        int maxY = 300;
-
-        Direction[] directions = Direction.values();
-
-        Direction direction = directions[ (int) Math.random() * Direction.values().length ];
-
-        switch (direction){
-            case LEFT:
-                enemyMoveLeft();
-                break;
-            case RIGHT:
-                enemyMoveRight();
-                break;
-            case TOP:
-                politicianMoveTop();
-                break;
-            case UP:
-                politicianMoveUp();
-                break;
-        }
-    }
-
-    private void politicianMoveTop(){
-
-    }
-
-    private void politicianMoveUp(){
-
-    }
-
-    @Override
-    public void enemyMoveRight() {
-
-    }
-
-    @Override
-    public void enemyMoveLeft() {
-        super.enemyMoveLeft();
+       corruptionLevel--;
     }
 
 
-    @Override
-    public void hit(Bullet bullet) {
-        super.hit(bullet);
+    public void setCorruptionLevel(int corruptionLevel) {
+        this.corruptionLevel = corruptionLevel;
     }
 
-    @Override
-    public int getEnemyGfxX() {
-        return super.getEnemyGfxX();
-    }
-
-    @Override
-    public boolean isDead() {
-        return dead;
-    }*/
 }
 

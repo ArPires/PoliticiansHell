@@ -1,7 +1,6 @@
 package org.academiadecodigo.politicianshell.enemies;
 
 import org.academiadecodigo.politicianshell.Direction;
-import org.academiadecodigo.politicianshell.bullets.Bullet;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 public abstract class Enemy {
@@ -20,7 +19,6 @@ public abstract class Enemy {
         this.enemyType = enemyType;
         this.x = x;
         this.y = y;
-        //currentHealth = enemyType.getHealth();
         String enemyPicture = getEnemyPicture();
         enemyGfx = new Picture(x, y, enemyPicture);
         enemyGfx.draw();
@@ -28,15 +26,6 @@ public abstract class Enemy {
 
     }
     public abstract String getEnemyPicture();
-
-   /* public void showEnemy(String enemyPicture) {
-
-
-    }
-
-   public void showEnemy () {
-
-   }*/
 
     public void moveEnemy() {
 
@@ -78,7 +67,6 @@ public abstract class Enemy {
 
     }
 
-
     public void enemyMoveRight() {
 
         if (timeToChangeDirection == 0) {
@@ -99,16 +87,6 @@ public abstract class Enemy {
 
         enemyGfx.translate(0, 15);
         direction = Direction.RIGHT;
-    }
-
-    public void hit() {
-
-        //currentHealth = enemyType.getHealth() > weaponType.getBulletPower() ? currentHealth - weaponType.getBulletPower() : 0;
-
-        //if (currentHealth == 0) {
-            dead = true;
-         //   System.out.println("This enemy is dead!");
-       // }
     }
 
     public boolean isDead() {
@@ -135,7 +113,6 @@ public abstract class Enemy {
     public int getEnemyGfxHeight() {
         return enemyGfx.getHeight();
     }
-
 
     public enum EnemyPicture {
 

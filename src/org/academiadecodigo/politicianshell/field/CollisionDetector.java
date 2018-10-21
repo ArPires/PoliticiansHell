@@ -2,6 +2,7 @@ package org.academiadecodigo.politicianshell.field;
 
 import org.academiadecodigo.politicianshell.Game;
 import org.academiadecodigo.politicianshell.enemies.Enemy;
+import org.academiadecodigo.politicianshell.enemies.EvilPolitician;
 import org.academiadecodigo.politicianshell.player.Player;
 import org.academiadecodigo.politicianshell.bullets.Bullet;
 

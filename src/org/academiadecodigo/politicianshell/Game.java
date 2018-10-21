@@ -26,24 +26,25 @@ public class Game {
     private Bullet bullet;
     private Text gameOverText;
     private Text roundOverText;
+    private Text winningText;
+    private int round = 1;
 
-    public Game(){
+    public Game() {
 
-        enemiesNumber = 42;
+
         gameField = new Field();
         menu = new Menu();
         gameField.init();
-        gameOverText = new Text(250,350, "GAME OVER");
-        gameOverText.setColor(Color.RED);
+        gameOverText = new Text(250, 350, "GAME OVER");
+        gameOverText.setColor(Color.BLACK);
         gameOverText.grow(100, 50);
+        winningText = new Text(250, 350, "YOU WON!!!");
+        winningText.setColor(Color.BLACK);
+        winningText.grow(100, 50);
+        bulletList = new LinkedList<>();
+        player = new Player();
 
 
-        /*minionPoliticians = createEnemies(40, 20, 50);
-        player = new Player();
-        collisionDetection = new CollisionDetector(minionPoliticians);
-        bulletList = new LinkedList<Bullet>();*/
-        //gameField.init();
-        player = new Player();
     }
 
     public void preGame() throws InterruptedException {
@@ -54,42 +55,42 @@ public class Game {
         if (gameStatus == Status.QUIT) {
             System.exit(0);
         }
-
-        if (gameStatus == Status.PLAY) {
-            //init();
-        }
     }
 
-    public void init() {
+    public void init() throws InterruptedException {
 
-        /*if(player.getLife() == 0) {
-            System.out.println("GAME OVER");
+
+        enemiesNumber = 42;
+        if (player.getLife() != 0) {
+            roundOverText = new Text(250, 350, ("ROUND " + round));
+            roundOverText.setColor(Color.BLACK);
+            roundOverText.grow(100, 50);
+            roundOverText.draw();
+            Thread.sleep(1000);
+            roundOverText.delete();
+        }
+        if (player.getLife() == 0) {
+            gameOverText.draw();
             return;
-        }*/
+        }
 
         player.showPlayer();
 
         enemies = createEnemies(enemiesNumber);
-        //player = new Player(Field.WIDTH/2 - 15, Field.HEIGHT - 100, 30, 40);
 
-        bulletList = new LinkedList<Bullet>();
+        bulletList = new LinkedList<>();
 
         collisionDetection = new CollisionDetector(enemies);
 
-        //player = new Player(Field.WIDTH / 2 - 15, Field.HEIGHT - 100, 30, 40);
 
     }
 
-    /*public void addBulletInGame(Bullet bullet) {
-        bulletList.add(bullet);
-    }*/
-
     private Enemy[] createEnemies(int enemyNumber) {
+
 
         int x = 20;
         int y = 70;
-
-        Enemy[] enemiesTemp = new  Enemy[enemiesNumber];
+        Enemy[] enemiesTemp = new Enemy[enemiesNumber];
 
         enemiesTemp[enemyNumber - 1] = new EvilPolitician(EnemyType.EVIL_POLITICIAN, 150, 10);
         enemiesTemp[enemyNumber - 2] = new EvilPolitician(EnemyType.EVIL_POLITICIAN, 350, 10);
@@ -109,22 +110,12 @@ public class Game {
     }
 
 
-
-    /*private EvilPolitician[] createEvilPolitician(int evilPoliticianNumber, int x, int y) {
-        EvilPolitician[] evilPoliticiansTemp = new EvilPolitician[evilPoliticianNumber];
-
-        for (int i = 0; i < evilPoliticianNumber; i++) {
-            evilPoliticiansTemp[i] = new EvilPolitician(EnemyType.EVIL_POLITICIAN, x, y);
-             x += 200;
-        }
-
-        return evilPoliticiansTemp;
-    }*/
-
-
     public void start() throws InterruptedException {
 
+
+
         while (true) {
+
 
             player.move();
 
@@ -157,29 +148,36 @@ public class Game {
 
     public void moveAllEnemies() throws InterruptedException {
 
+        for (Enemy enemy : enemies) {
+            if (player.getLife() == 0) {
+                deleteBullets();
+                player.hidePlayer();
+                deleteEnemies();
 
-        //if (minionPoliticiansNumber != 0) {
-            for (Enemy enemy : enemies) {
-                if (player.getLife() == 0) {
-                    deleteBullets();
-                    player.hidePlayer();
-                    deleteEnemies();
-                    gameOverText.draw();
-                    return;
-                }
-                if ((enemy.getEnemyGfxY() + enemy.getEnemyGfxHeight()) > player.getY()) {
-                    player.setLife(player.getLife() - 1);
-                    System.out.println(player.getLife());
-                    deleteBullets();
-                    deleteEnemies();
-                    init();
-                    start();
-                    return;
-                }
-                enemy.moveEnemy();
+                return;
+            }
+            if (enemiesNumber == 0){
 
             }
-        //}
+            if ((enemy.getEnemyGfxY() + enemy.getEnemyGfxHeight() + 5) >= player.getY() && enemiesNumber != 0) {
+                player.setLife(player.getLife() - 1);
+                round++;
+
+                System.out.println(player.getLife());
+
+                deleteBullets();
+                deleteEnemies();
+
+
+                init();
+                start();
+
+                return;
+            }
+
+            enemy.moveEnemy();
+
+        }
 
 
         for (Bullet bullet : bulletList) {
@@ -188,13 +186,17 @@ public class Game {
     }
 
     public void deleteEnemies() {
-        for(Enemy enemy : enemies) {
+        for (Enemy enemy : enemies) {
+            if(enemy instanceof EvilPolitician)  {
+               ((EvilPolitician) enemy).setCorruptionLevel(0);
+            }
             enemy.setDead(true);
         }
+
     }
 
     public void deleteBullets() {
-        for(Bullet bullet : bulletList) {
+        for (Bullet bullet : bulletList) {
             bullet.remove();
         }
     }
