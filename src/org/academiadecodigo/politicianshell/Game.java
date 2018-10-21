@@ -23,6 +23,7 @@ public class Game {
     private Bullet bullet;
     private Text gameOverText;
     private Text roundOverText;
+    private int round = 1;
 
     public Game(){
 
@@ -30,8 +31,10 @@ public class Game {
         menu = new Menu();
         gameField.init();
         gameOverText = new Text(250,350, "GAME OVER");
-        gameOverText.setColor(Color.RED);
+        gameOverText.setColor(Color.BLACK);
         gameOverText.grow(100, 50);
+
+
 
 
         /*enemies = createEnemies(40, 20, 50);
@@ -58,12 +61,20 @@ public class Game {
         }
     }
 
-    public void init() {
+    public void init() throws InterruptedException {
 
-        /*if(player.getLife() == 0) {
-            System.out.println("GAME OVER");
+        if(player.getLife() != 0) {
+            roundOverText = new Text(250, 350, ("ROUND " + round));
+            roundOverText.setColor(Color.BLACK);
+            roundOverText.grow(100, 50);
+            roundOverText.draw();
+            Thread.sleep(1000);
+            roundOverText.delete();
+        }
+        if(player.getLife() == 0) {
+            gameOverText.draw();
             return;
-        }*/
+        }
 
         player.showPlayer();
 
@@ -99,10 +110,11 @@ public class Game {
         return enemiesTemp;
     }
 
-
     public void start() throws InterruptedException {
 
         while (true) {
+
+
 
             player.move();
 
@@ -135,23 +147,26 @@ public class Game {
 
     public void moveAllEnemies() throws InterruptedException {
 
-
-
         for (Enemy enemy : enemies) {
             if(player.getLife() == 0) {
                 deleteBullets();
                 player.hidePlayer();
                 deleteEnemies();
-                gameOverText.draw();
+
                 return;
             }
             if((enemy.getEnemyGfxY() + enemy.getEnemyGfxHeight()) > player.getY()) {
                 player.setLife(player.getLife() - 1);
+                round++;
                 System.out.println(player.getLife());
+
                 deleteBullets();
                 deleteEnemies();
+
+
                 init();
                 start();
+
                 return;
             }
             enemy.moveEnemy();
@@ -174,8 +189,6 @@ public class Game {
             bullet.remove();
         }
     }
-
-
 
     public enum Status {
 
