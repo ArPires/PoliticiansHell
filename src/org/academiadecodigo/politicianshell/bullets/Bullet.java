@@ -7,34 +7,26 @@ public class Bullet {
 
     private Picture bulletGfx;
     private Picture splashedBulletGfx;
-    //private boolean move;
     private boolean fired;
     private boolean hit;
 
     public Bullet(int x, int y) {
 
-        //move = false;
         fired = false;
         hit = false;
         bulletGfx = new Picture(x, y, "resources/tomato.png");
         bulletGfx.draw();
-        /*bulletGfx = new Rectangle(x, y, 4, 10);
-        bulletGfx.setColor(Color.RED);
-        bulletGfx.fill();*/
 
     }
 
     public void move() {
         if (bulletGfx.getY() > -30) {
-            //move = true;
             bulletGfx.translate(0, -20);
         }
     }
 
     public void stop() {
-        //if (move) {
-            bulletGfx.translate(0, 0);
-        //}
+        bulletGfx.translate(0, 0);
     }
 
     public void setFired(boolean fired) {
@@ -47,9 +39,6 @@ public class Bullet {
 
     public void hit(boolean hit){
         this.hit = hit;
-       /* bulletGfx.delete();
-        bulletGfx = new Picture (bulletGetX() , bulletGetY(), "resources/tomatoSplash.png");
-        bulletGfx.draw();*/
     }
 
     public boolean getHit(){

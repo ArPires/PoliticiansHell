@@ -5,49 +5,39 @@ import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 public abstract class Enemy {
 
-    private EnemyType enemyType;
     private boolean dead;
-    //private int currentHealth;
     private Picture enemyGfx;
     private Direction direction = Direction.RIGHT;
     private int timeToChangeDirection;
     private int x;
     private int y;
 
-    public Enemy(EnemyType enemyType, int x, int y) {
+    public Enemy(int x, int y) {
 
-        this.enemyType = enemyType;
         this.x = x;
         this.y = y;
-        String enemyPicture = getEnemyPicture();
+        String enemyPicture = getEnemyPictureUrl();
         enemyGfx = new Picture(x, y, enemyPicture);
         enemyGfx.draw();
         timeToChangeDirection = 4;
 
     }
-    public abstract String getEnemyPicture();
+
+    public abstract String getEnemyPictureUrl();
 
     public void moveEnemy() {
-
-        int maxY = 550;
 
         switch (direction) {
             case RIGHT:
                 enemyMoveRight();
                 break;
             case DOWN_TO_LEFT:
-                if (enemyGfx.getY() > maxY) {
-                    return;
-                }
                 enemyDownToLeft();
                 break;
             case LEFT:
                 enemyMoveLeft();
                 break;
             case DOWN_TO_RIGHT:
-                if (enemyGfx.getY() > maxY) {
-                    return;
-                }
                 enemyDownToRight();
                 break;
         }

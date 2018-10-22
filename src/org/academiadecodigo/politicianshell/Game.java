@@ -1,7 +1,6 @@
 package org.academiadecodigo.politicianshell;
 
 import org.academiadecodigo.politicianshell.enemies.Enemy;
-import org.academiadecodigo.politicianshell.enemies.EnemyType;
 import org.academiadecodigo.politicianshell.enemies.EvilPolitician;
 import org.academiadecodigo.politicianshell.enemies.MinionPolitician;
 import org.academiadecodigo.politicianshell.field.CollisionDetector;
@@ -23,27 +22,26 @@ public class Game {
     private Status gameStatus;
     private Menu menu;
     private LinkedList<Bullet> bulletList;
-    private Bullet bullet;
     private Text gameOverText;
-    private Text roundOverText;
-    private Text winningText;
+    private Text textScore;
     private int round = 1;
+    private int score;
 
     public Game() {
-
 
         gameField = new Field();
         menu = new Menu();
         gameField.init();
+        textScore = new Text(10, 10, "");
+        textScore.grow(10, 10);
         gameOverText = new Text(250, 350, "GAME OVER");
         gameOverText.setColor(Color.BLACK);
         gameOverText.grow(100, 50);
-        winningText = new Text(250, 350, "YOU WON!!!");
+        Text winningText = new Text(250, 350, "YOU WON!!!");
         winningText.setColor(Color.BLACK);
         winningText.grow(100, 50);
         bulletList = new LinkedList<>();
         player = new Player();
-
 
     }
 
@@ -59,10 +57,9 @@ public class Game {
 
     public void init() throws InterruptedException {
 
-
         enemiesNumber = 42;
         if (player.getLife() != 0) {
-            roundOverText = new Text(250, 350, ("ROUND " + round));
+            Text roundOverText = new Text(250, 350, ("ROUND " + round));
             roundOverText.setColor(Color.BLACK);
             roundOverText.grow(100, 50);
             roundOverText.draw();
@@ -82,29 +79,27 @@ public class Game {
 
         collisionDetection = new CollisionDetector(enemies);
 
-
     }
 
     private Enemy[] createEnemies(int enemyNumber) {
-
 
         int x = 20;
         int y = 70;
         Enemy[] enemiesTemp = new Enemy[enemiesNumber];
 
-        enemiesTemp[enemyNumber - 1] = new EvilPolitician(EnemyType.EVIL_POLITICIAN, 150, 10);
-        enemiesTemp[enemyNumber - 2] = new EvilPolitician(EnemyType.EVIL_POLITICIAN, 350, 10);
+        enemiesTemp[enemyNumber - 1] = new EvilPolitician(150, 10);
+        enemiesTemp[enemyNumber - 2] = new EvilPolitician(350, 10);
 
         for (int i = 0; i < enemyNumber - 2; i++) {
+
             if (i % 10 == 0) {
                 y += 50;
                 x = 20;
             }
-            enemiesTemp[i] = new MinionPolitician(EnemyType.MINION_POLITICIAN, x, y);
+            enemiesTemp[i] = new MinionPolitician(x, y);
             x += 45;
 
         }
-
 
         return enemiesTemp;
     }
@@ -113,9 +108,9 @@ public class Game {
     public void start() throws InterruptedException {
 
 
-
         while (true) {
 
+            scoreDisplay();
 
             player.move();
 
@@ -156,7 +151,7 @@ public class Game {
 
                 return;
             }
-            if (enemiesNumber == 0){
+            if (enemiesNumber == 0) {
 
             }
             if ((enemy.getEnemyGfxY() + enemy.getEnemyGfxHeight() + 5) >= player.getY() && enemiesNumber != 0) {
@@ -167,7 +162,6 @@ public class Game {
 
                 deleteBullets();
                 deleteEnemies();
-
 
                 init();
                 start();
@@ -187,8 +181,8 @@ public class Game {
 
     public void deleteEnemies() {
         for (Enemy enemy : enemies) {
-            if(enemy instanceof EvilPolitician)  {
-               ((EvilPolitician) enemy).setCorruptionLevel(0);
+            if (enemy instanceof EvilPolitician) {
+                ((EvilPolitician) enemy).setCorruptionLevel(0);
             }
             enemy.setDead(true);
         }
@@ -207,6 +201,20 @@ public class Game {
 
     public void setEnemiesNumber(int enemiesNumber) {
         this.enemiesNumber = enemiesNumber;
+    }
+
+    public void scoreDisplay() {
+
+        textScore.setText(" SCORE   " + score);
+        textScore.draw();
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
     }
 
     public enum Status {

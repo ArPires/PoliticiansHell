@@ -6,7 +6,5 @@ public enum Direction {
     RIGHT,
     DOWN_TO_LEFT,
     DOWN_TO_RIGHT,
-   /* TOP,
-    UP*/
 
 }
