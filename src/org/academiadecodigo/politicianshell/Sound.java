@@ -22,23 +22,30 @@ public class Sound {
         }
         clip.start();
     }
+
     public void stop() {
         clip.stop();
     }
 
     private void initClip(String path) {
+
         soundURL = Sound.class.getResource(path); //if loading from jar
         AudioInputStream inputStream = null;
+
         try {
+
             if (soundURL == null) {
                 path = path.substring(1);
                 File file = new File(path);
                 soundURL = file.toURI().toURL(); //if executing on intellij
             }
+
             inputStream = AudioSystem.getAudioInputStream(soundURL);
             clip = AudioSystem.getClip();
             clip.open(inputStream);
+
         } catch (UnsupportedAudioFileException | LineUnavailableException | IOException ex) {
+
             System.out.println(ex.getMessage());
         }
     }

@@ -14,7 +14,7 @@ public class Menu {
 
     public Menu() {
 
-        menu = new Picture(0, 0, "resources/Menu.png");
+        menu = new Picture(0, 0, "resources/Images/Menu.png");
         new MenuHandler();
         status = Game.Status.MENU;
 
@@ -37,11 +37,13 @@ public class Menu {
         private Keyboard k;
 
         public MenuHandler() {
+
             k = new Keyboard(this);
             mapKeys();
         }
 
         private void mapKeys() {
+
             KeyboardEvent pressGame = new KeyboardEvent();
             pressGame.setKey(KeyboardEvent.KEY_P);
             pressGame.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);

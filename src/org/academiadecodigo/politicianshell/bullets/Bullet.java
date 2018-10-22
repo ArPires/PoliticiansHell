@@ -14,12 +14,13 @@ public class Bullet {
 
         fired = false;
         hit = false;
-        bulletGfx = new Picture(x, y, "resources/tomato.png");
+        bulletGfx = new Picture(x, y, "resources/Images/tomato.png");
         bulletGfx.draw();
 
     }
 
     public void move() {
+
         if (bulletGfx.getY() > -30) {
             bulletGfx.translate(0, -20);
         }
@@ -62,7 +63,8 @@ public class Bullet {
     }
 
     public void splash() throws InterruptedException {
-        splashedBulletGfx = new Picture(bulletGetX(), bulletGetY(), "resources/tomatoSplash.png");
+
+        splashedBulletGfx = new Picture(bulletGetX(), bulletGetY(), "resources/Images/tomatoSplash.png");
         splashedBulletGfx.draw();
 
         Thread.sleep(100);

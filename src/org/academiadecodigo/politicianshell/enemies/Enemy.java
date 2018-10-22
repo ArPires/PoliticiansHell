@@ -106,15 +106,15 @@ public abstract class Enemy {
 
     public enum EnemyPicture {
 
-        SOCRATES ("resources/Socrates.png"),
-        LULA ("resources/Lula.png"),
-        BOLSONARO ("resources/Bolsonaro.png"),
-        MADURO ("resources/Maduro.png"),
-        PUTIN ("resources/Putin.png"),
-        PASSOS_COELHO ("resources/PassosCoelho.png"),
-        ANTONIO_COSTA ("resources/AntonioCosta.png"),
-        TRUMP ("resources/TrumpXL.png"),
-        KIM_JONG_UN ("resources/KimJongUnXL.jpg");
+        SOCRATES ("resources/Images/Socrates.png"),
+        LULA ("resources//Images/Lula.png"),
+        BOLSONARO ("resources/Images/Bolsonaro.png"),
+        MADURO ("resources/Images/Maduro.png"),
+        PUTIN ("resources/Images/Putin.png"),
+        PASSOS_COELHO ("resources/Images/PassosCoelho.png"),
+        ANTONIO_COSTA ("resources/Images/AntonioCosta.png"),
+        TRUMP ("resources/Images/TrumpXL.png"),
+        KIM_JONG_UN ("resources/Images/KimJongUnXL.jpg");
 
         private String url;
 

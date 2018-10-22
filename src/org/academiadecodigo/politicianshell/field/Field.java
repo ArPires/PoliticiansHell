@@ -1,5 +1,4 @@
 package org.academiadecodigo.politicianshell.field;
-import org.academiadecodigo.simplegraphics.graphics.Canvas;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 public class Field {
@@ -11,7 +10,8 @@ public class Field {
     private Picture grid;
 
     public Field(){
-        grid = new Picture(0, PADDING_BOTTOM, "resources/HellBg1.png");
+
+        grid = new Picture(0, PADDING_BOTTOM, "resources/Images/HellBg1.png");
 
     }
 

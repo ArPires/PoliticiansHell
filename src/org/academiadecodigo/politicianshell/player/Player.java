@@ -19,10 +19,11 @@ public class Player {
     private Sound sound;
 
     public Player() {
+
         sound = new Sound("/resources/Sounds/shot.wav");
         int x = Field.WIDTH / 2 - 15;
         int y = Field.HEIGHT - 100;
-        playerGfx = new Picture(x, y, "resources/ZePovinho.png");
+        playerGfx = new Picture(x, y, "resources/Images/ZePovinho.png");
 
         playerKeyboard = new PlayerKeyboard(this);
         savedBulletsList = new LinkedList<>();

@@ -12,8 +12,10 @@ public class MinionPolitician extends Enemy {
 
     @Override
     public String getEnemyPictureUrl () {
+
         random = (int) (Math.random() * (EnemyPicture.values().length - 2));
         String enemyPicture = EnemyPicture.values()[random].getUrl();
+
         return enemyPicture;
 
     }
