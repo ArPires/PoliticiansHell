@@ -48,7 +48,9 @@ public class Game {
         winningText.grow(100, 50);
         bulletList = new LinkedList<>();
         player = new Player();
-
+        sound = new Sound("/resources/Sounds/politiciansHellGame.wav");
+        gameOverSound = new Sound("/resources/Sounds/gameOver.wav");
+        sound.play(true);
     }
 
     public void preGame() throws InterruptedException {
