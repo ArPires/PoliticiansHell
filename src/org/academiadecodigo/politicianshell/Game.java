@@ -27,6 +27,7 @@ public class Game {
     private Text roundOverText;
     private Text winningText;
     private Text textScore;
+    private Text textLives;
     private int round = 1;
     private int score;
     private Sound sound;
@@ -38,8 +39,10 @@ public class Game {
         gameField = new Field();
         menu = new Menu();
         gameField.init();
-        textScore = new Text(10, 10, "");
+        textScore = new Text(10, 670, "");
         textScore.grow(10, 10);
+        textLives = new Text(400, 670, "");
+        textLives.grow(10, 10);
         gameOverText = new Text(250, 350, "GAME OVER");
         gameOverText.setColor(Color.BLACK);
         gameOverText.grow(100, 50);
@@ -84,6 +87,9 @@ public class Game {
             gameOverText.draw();
             Thread.sleep(3000);
             gameOverText.delete();
+            //gameStatus = Status.MENU;
+            //gameStatus = menu.play();
+
             System.exit(0);
             return;
         }
@@ -130,6 +136,8 @@ public class Game {
         while (true) {
 
             scoreDisplay();
+
+            livesDisplay();
 
             player.move();
 
@@ -235,6 +243,12 @@ public class Game {
 
         textScore.setText(" SCORE   " + score);
         textScore.draw();
+    }
+
+    public void livesDisplay() {
+
+        textLives.setText(" LIVES   " + player.getLife());
+        textLives.draw();
     }
 
     public int getScore() {

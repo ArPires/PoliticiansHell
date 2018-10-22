@@ -25,24 +25,7 @@ public class Sound {
     public void stop() {
         clip.stop();
     }
-    public void close() {
-        clip.close();
-    }
-    public void loopIndef() {
-        //sets loop points at start and end of track
-        clip.setLoopPoints(0, (int) (getLength() * 0.94));
-        //activates loop
-        clip.loop(Clip.LOOP_CONTINUOUSLY);
-    }
-    public void reOpen() {
-        AudioInputStream inputStream = null;
-        try {
-            inputStream = AudioSystem.getAudioInputStream(soundURL);
-            clip.open(inputStream);
-        } catch (LineUnavailableException | IOException | UnsupportedAudioFileException ex) {
-            System.out.println(ex.getMessage());
-        }
-    }
+
     private void initClip(String path) {
         soundURL = Sound.class.getResource(path); //if loading from jar
         AudioInputStream inputStream = null;
@@ -58,8 +41,5 @@ public class Sound {
         } catch (UnsupportedAudioFileException | LineUnavailableException | IOException ex) {
             System.out.println(ex.getMessage());
         }
-    }
-    private int getLength() {
-        return clip.getFrameLength();
     }
 }
