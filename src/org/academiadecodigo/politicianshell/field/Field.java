@@ -13,11 +13,6 @@ public class Field {
     public Field(){
         grid = new Picture(0, PADDING_BOTTOM, "resources/HellBg1.png");
 
-// RETIFICAR A NECESSIDADE DE COLOCAR ESTE COISO
-
-        //Canvas.getInstance().setWidth(WIDTH);
-        //Canvas.getInstance().setHeight(HEIGHT);
-
     }
 
     public void init(){
@@ -25,14 +20,5 @@ public class Field {
         grid.draw();
 
     }
-
-    public int getWidth(){
-        return grid.getWidth();
-    }
-
-    public int getHeight(){
-        return grid.getHeight();
-    }
-
 
 }

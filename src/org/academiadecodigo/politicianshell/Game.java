@@ -1,7 +1,6 @@
 package org.academiadecodigo.politicianshell;
 
 import org.academiadecodigo.politicianshell.enemies.Enemy;
-import org.academiadecodigo.politicianshell.enemies.EnemyType;
 import org.academiadecodigo.politicianshell.enemies.EvilPolitician;
 import org.academiadecodigo.politicianshell.enemies.MinionPolitician;
 import org.academiadecodigo.politicianshell.field.CollisionDetector;
@@ -10,10 +9,6 @@ import org.academiadecodigo.politicianshell.player.Player;
 import org.academiadecodigo.politicianshell.bullets.Bullet;
 import org.academiadecodigo.simplegraphics.graphics.Color;
 import org.academiadecodigo.simplegraphics.graphics.Text;
-import org.academiadecodigo.simplegraphics.keyboard.Keyboard;
-import org.academiadecodigo.simplegraphics.keyboard.KeyboardEvent;
-import org.academiadecodigo.simplegraphics.keyboard.KeyboardEventType;
-import org.academiadecodigo.simplegraphics.keyboard.KeyboardHandler;
 
 import java.util.LinkedList;
 
@@ -27,32 +22,32 @@ public class Game {
     private Status gameStatus;
     private Menu menu;
     private LinkedList<Bullet> bulletList;
-    private Bullet bullet;
     private Text gameOverText;
     private Text roundText;
     private Text roundOverText;
     private Text winningText;
+    private Text textScore;
     private int round = 1;
+    private int score;
     private Sound sound;
     private Sound gameOverSound;
-    private Keyboard k;
 
     public Game() {
+
 
         gameField = new Field();
         menu = new Menu();
         gameField.init();
+        textScore = new Text(10, 10, "");
+        textScore.grow(10, 10);
         gameOverText = new Text(250, 350, "GAME OVER");
         gameOverText.setColor(Color.BLACK);
         gameOverText.grow(100, 50);
-        winningText = new Text(230, 350, "YOU'VE WON!!!");
+        winningText = new Text(250, 350, "YOU WON!!!");
         winningText.setColor(Color.BLACK);
         winningText.grow(100, 50);
         bulletList = new LinkedList<>();
         player = new Player();
-        sound = new Sound("/resources/Sounds/politiciansHellGame.wav");
-        gameOverSound = new Sound("/resources/Sounds/gameOver.wav");
-        sound.play(true);
 
     }
 
@@ -70,15 +65,15 @@ public class Game {
 
     public void init() throws InterruptedException {
 
+
         enemiesNumber = 42;
         if (player.getLife() != 0) {
-
-            roundText = new Text(250, 350, ("ROUND " + round));
-            roundText.setColor(Color.BLACK);
-            roundText.grow(100, 50);
-            roundText.draw();
+            roundOverText = new Text(250, 350, ("ROUND " + round));
+            roundOverText.setColor(Color.BLACK);
+            roundOverText.grow(100, 50);
+            roundOverText.draw();
             Thread.sleep(1000);
-            roundText.delete();
+            roundOverText.delete();
         }
 
         if (player.getLife() == 0) {
@@ -99,6 +94,7 @@ public class Game {
 
         collisionDetection = new CollisionDetector(enemies);
 
+
     }
 
     private Enemy[] createEnemies(int enemyNumber) {
@@ -107,26 +103,31 @@ public class Game {
         int y = 70;
         Enemy[] enemiesTemp = new Enemy[enemiesNumber];
 
-        enemiesTemp[enemyNumber - 1] = new EvilPolitician(EnemyType.EVIL_POLITICIAN, 150, 10);
-        enemiesTemp[enemyNumber - 2] = new EvilPolitician(EnemyType.EVIL_POLITICIAN, 350, 10);
+        enemiesTemp[enemyNumber - 1] = new EvilPolitician(150, 10);
+        enemiesTemp[enemyNumber - 2] = new EvilPolitician(350, 10);
 
         for (int i = 0; i < enemyNumber - 2; i++) {
             if (i % 10 == 0) {
                 y += 50;
                 x = 20;
             }
-
-            enemiesTemp[i] = new MinionPolitician(EnemyType.MINION_POLITICIAN, x, y);
+            enemiesTemp[i] = new MinionPolitician(x, y);
             x += 45;
 
         }
 
+
         return enemiesTemp;
     }
 
+
     public void start() throws InterruptedException {
 
+
+
         while (true) {
+
+            scoreDisplay();
 
             player.move();
 
@@ -153,6 +154,7 @@ public class Game {
             moveAllEnemies();
 
             Thread.sleep(100);
+
         }
     }
 
@@ -227,6 +229,20 @@ public class Game {
         this.enemiesNumber = enemiesNumber;
     }
 
+    public void scoreDisplay() {
+
+        textScore.setText(" SCORE   " + score);
+        textScore.draw();
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
     public enum Status {
 
         MENU,
@@ -234,5 +250,4 @@ public class Game {
         QUIT
 
     }
-
 }

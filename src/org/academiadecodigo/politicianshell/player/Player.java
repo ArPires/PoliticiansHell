@@ -11,12 +11,10 @@ import java.util.LinkedList;
 public class Player {
 
     private Picture playerGfx;
-    //private Bullet bullet;
     private PlayerKeyboard playerKeyboard;
     private Direction direction;
     private boolean readyToNextShoot;
     private LinkedList<Bullet> savedBulletsList;
-    //private Field grid;
     private int life = 3;
     private Sound sound;
 
@@ -24,8 +22,6 @@ public class Player {
         sound = new Sound("/resources/Sounds/shot.wav");
         int x = Field.WIDTH / 2 - 15;
         int y = Field.HEIGHT - 100;
-        //int x = grid.getWidth()/2 - 15;
-        //int y = grid.getHeight() - 100;
         playerGfx = new Picture(x, y, "resources/ZePovinho.png");
 
         playerKeyboard = new PlayerKeyboard(this);
@@ -108,11 +104,6 @@ public class Player {
 
     }
 
-    public void removeBullets() {
-        for(Bullet bullet : savedBulletsList) {
-            bullet.remove();
-        }
-    }
 
     public int getX(){
         return playerGfx.getX();

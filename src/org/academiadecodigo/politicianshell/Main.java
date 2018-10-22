@@ -2,13 +2,19 @@ package org.academiadecodigo.politicianshell;
 
 public class Main {
 
-    public static void main(String[] args) throws InterruptedException{
+    public static void main(String[] args){
 
         Game g = new Game();
 
-        g.preGame();
-        g.init();
-        g.start();
+        try {
+
+            g.preGame();
+            g.init();
+            g.start();
+
+        }catch (InterruptedException e){
+            System.out.println(e.getMessage());
+        }
 
     }
 
