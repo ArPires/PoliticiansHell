@@ -28,6 +28,7 @@ public class Game {
     private Text roundOverText;
     private Text winningText;
     private int round = 1;
+    private Sound sound;
 
     public Game() {
 
@@ -38,12 +39,13 @@ public class Game {
         gameOverText = new Text(250, 350, "GAME OVER");
         gameOverText.setColor(Color.BLACK);
         gameOverText.grow(100, 50);
-        winningText = new Text(250, 350, "YOU WON!!!");
+        winningText = new Text(250, 350, "YOU'VE WON!!!");
         winningText.setColor(Color.BLACK);
         winningText.grow(100, 50);
         bulletList = new LinkedList<>();
         player = new Player();
-
+        sound = new Sound("/resources/Sounds/politiciansHellGame.wav");
+        sound.play(true);
 
     }
 
@@ -52,6 +54,7 @@ public class Game {
         gameStatus = Status.MENU;
         gameStatus = menu.play();
 
+
         if (gameStatus == Status.QUIT) {
             System.exit(0);
         }
@@ -59,10 +62,10 @@ public class Game {
 
     public void init() throws InterruptedException {
 
-
         enemiesNumber = 42;
         if (player.getLife() != 0) {
-            roundOverText = new Text(250, 350, ("ROUND " + round));
+
+            roundOverText = new Text(250, 350, ("YOU'VE LOST!! \nROUND " + round));
             roundOverText.setColor(Color.BLACK);
             roundOverText.grow(100, 50);
             roundOverText.draw();
@@ -70,6 +73,7 @@ public class Game {
             roundOverText.delete();
         }
         if (player.getLife() == 0) {
+            sound.stop();
             gameOverText.draw();
             return;
         }
@@ -116,7 +120,6 @@ public class Game {
 
         while (true) {
 
-
             player.move();
 
             if (player.getReadyToNextShoot()) {
@@ -142,7 +145,6 @@ public class Game {
             moveAllEnemies();
 
             Thread.sleep(100);
-
         }
     }
 
