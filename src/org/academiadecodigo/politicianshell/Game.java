@@ -10,6 +10,10 @@ import org.academiadecodigo.politicianshell.player.Player;
 import org.academiadecodigo.politicianshell.bullets.Bullet;
 import org.academiadecodigo.simplegraphics.graphics.Color;
 import org.academiadecodigo.simplegraphics.graphics.Text;
+import org.academiadecodigo.simplegraphics.keyboard.Keyboard;
+import org.academiadecodigo.simplegraphics.keyboard.KeyboardEvent;
+import org.academiadecodigo.simplegraphics.keyboard.KeyboardEventType;
+import org.academiadecodigo.simplegraphics.keyboard.KeyboardHandler;
 
 import java.util.LinkedList;
 
@@ -31,10 +35,9 @@ public class Game {
     private int round = 1;
     private Sound sound;
     private Sound gameOverSound;
-
+    private Keyboard k;
 
     public Game() {
-
 
         gameField = new Field();
         menu = new Menu();
@@ -42,7 +45,7 @@ public class Game {
         gameOverText = new Text(250, 350, "GAME OVER");
         gameOverText.setColor(Color.BLACK);
         gameOverText.grow(100, 50);
-        winningText = new Text(250, 350, "YOU'VE WON!!!");
+        winningText = new Text(230, 350, "YOU'VE WON!!!");
         winningText.setColor(Color.BLACK);
         winningText.grow(100, 50);
         bulletList = new LinkedList<>();
@@ -62,6 +65,7 @@ public class Game {
         if (gameStatus == Status.QUIT) {
             System.exit(0);
         }
+
     }
 
     public void init() throws InterruptedException {
@@ -76,10 +80,14 @@ public class Game {
             Thread.sleep(1000);
             roundText.delete();
         }
+
         if (player.getLife() == 0) {
             sound.stop();
             gameOverSound.play(true);
             gameOverText.draw();
+            Thread.sleep(3000);
+            gameOverText.delete();
+            System.exit(0);
             return;
         }
 
@@ -91,13 +99,11 @@ public class Game {
 
         collisionDetection = new CollisionDetector(enemies);
 
-
     }
 
     private Enemy[] createEnemies(int enemyNumber) {
 
-
-        int x = 20;
+        int x = 15;
         int y = 70;
         Enemy[] enemiesTemp = new Enemy[enemiesNumber];
 
@@ -109,19 +115,16 @@ public class Game {
                 y += 50;
                 x = 20;
             }
+
             enemiesTemp[i] = new MinionPolitician(EnemyType.MINION_POLITICIAN, x, y);
             x += 45;
 
         }
 
-
         return enemiesTemp;
     }
 
-
     public void start() throws InterruptedException {
-
-
 
         while (true) {
 
@@ -164,23 +167,26 @@ public class Game {
                 return;
             }
             if (enemiesNumber == 0){
-
+                winningText.draw();
+                return;
             }
             if ((enemy.getEnemyGfxY() + enemy.getEnemyGfxHeight() + 5) >= player.getY() && enemiesNumber != 0) {
+
                 player.setLife(player.getLife() - 1);
                 round++;
 
-
                 deleteBullets();
                 deleteEnemies();
+
                 if(player.getLife() != 0) {
-                    roundOverText = new Text(250, 350, ("YOU'VE LOST THIS ROUND"));
+                    roundOverText = new Text(200, 350, ("YOU'VE LOST THIS ROUND"));
                     roundOverText.setColor(Color.BLACK);
                     roundOverText.grow(100, 50);
                     roundOverText.draw();
                     Thread.sleep(1000);
                     roundOverText.delete();
                 }
+
                 init();
                 start();
 
@@ -228,4 +234,5 @@ public class Game {
         QUIT
 
     }
+
 }
