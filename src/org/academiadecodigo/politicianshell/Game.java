@@ -25,10 +25,13 @@ public class Game {
     private LinkedList<Bullet> bulletList;
     private Bullet bullet;
     private Text gameOverText;
+    private Text roundText;
     private Text roundOverText;
     private Text winningText;
     private int round = 1;
     private Sound sound;
+    private Sound gameOverSound;
+
 
     public Game() {
 
@@ -45,6 +48,7 @@ public class Game {
         bulletList = new LinkedList<>();
         player = new Player();
         sound = new Sound("/resources/Sounds/politiciansHellGame.wav");
+        gameOverSound = new Sound("/resources/Sounds/gameOver.wav");
         sound.play(true);
 
     }
@@ -65,15 +69,16 @@ public class Game {
         enemiesNumber = 42;
         if (player.getLife() != 0) {
 
-            roundOverText = new Text(250, 350, ("YOU'VE LOST!! \nROUND " + round));
-            roundOverText.setColor(Color.BLACK);
-            roundOverText.grow(100, 50);
-            roundOverText.draw();
+            roundText = new Text(250, 350, ("ROUND " + round));
+            roundText.setColor(Color.BLACK);
+            roundText.grow(100, 50);
+            roundText.draw();
             Thread.sleep(1000);
-            roundOverText.delete();
+            roundText.delete();
         }
         if (player.getLife() == 0) {
             sound.stop();
+            gameOverSound.play(true);
             gameOverText.draw();
             return;
         }
@@ -165,12 +170,17 @@ public class Game {
                 player.setLife(player.getLife() - 1);
                 round++;
 
-                System.out.println(player.getLife());
 
                 deleteBullets();
                 deleteEnemies();
-
-
+                if(player.getLife() != 0) {
+                    roundOverText = new Text(250, 350, ("YOU'VE LOST THIS ROUND"));
+                    roundOverText.setColor(Color.BLACK);
+                    roundOverText.grow(100, 50);
+                    roundOverText.draw();
+                    Thread.sleep(1000);
+                    roundOverText.delete();
+                }
                 init();
                 start();
 

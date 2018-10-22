@@ -1,6 +1,7 @@
 package org.academiadecodigo.politicianshell.player;
 
 import org.academiadecodigo.politicianshell.Direction;
+import org.academiadecodigo.politicianshell.Sound;
 import org.academiadecodigo.politicianshell.field.Field;
 import org.academiadecodigo.politicianshell.bullets.Bullet;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
@@ -17,8 +18,10 @@ public class Player {
     private LinkedList<Bullet> savedBulletsList;
     //private Field grid;
     private int life = 3;
+    private Sound sound;
 
     public Player() {
+        sound = new Sound("/resources/Sounds/shot.wav");
         int x = Field.WIDTH / 2 - 15;
         int y = Field.HEIGHT - 100;
         //int x = grid.getWidth()/2 - 15;
@@ -81,6 +84,8 @@ public class Player {
 
     public Bullet shoot() {
 
+        sound.play(true);
+
         if (!readyToNextShoot) {
             return null;
         }
@@ -90,7 +95,7 @@ public class Player {
         Bullet bullet = savedBulletsList.removeLast();
 
         setReadyToNextShoot(false);
-
+        //sound.stop();
         return bullet;
 
     }
